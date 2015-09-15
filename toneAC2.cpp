@@ -58,7 +58,7 @@ void noToneAC2() {
 }
 
 ISR(TIMER2_COMPA_vect) { // Timer interrupt vector.
-  if (millis() >= _tAC2_time) noToneAC2(); // Check to see if it's time for the note to end.
+  if (millis() > _tAC2_time) noToneAC2(); // Check to see if it's time for the note to end.
   *_pinOutput1 ^= _pinMask1; // Toggle the pin 1 state.
   *_pinOutput2 ^= _pinMask2; // Toggle the pin 2 state.
 }

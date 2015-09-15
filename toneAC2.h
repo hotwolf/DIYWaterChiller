@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
-// toneAC2 Library - v1.0 - 01/27/2013
+// toneAC2 Library - v1.1 - 09/15/2015
 //
 // AUTHOR/LICENSE:
 // Created by Tim Eckel - teckel@leethost.com
-// Copyright 2013 License: GNU GPL v3 http://www.gnu.org/licenses/gpl-3.0.html
+// Copyright 2015 License: GNU GPL v3 http://www.gnu.org/licenses/gpl-3.0.html
 //
 // LINKS:
 // Project home: http://code.google.com/p/arduino-tone-ac/
@@ -26,7 +26,7 @@
 // Connection is very similar to a piezo or standard speaker. Except, instead
 // of connecting one speaker wire to ground you connect both speaker wires to
 // Arduino pins. Unlike toneAC, with toneAC2 you can connect to any two pins.
-// Just as usual when connecting a speaker, make sure you add an inline 100
+// Just as usual when connecting a speaker, make sure you add an in-line 100
 // ohm resistor between one of the pins and the speaker wire.
 //
 // SYNTAX:
@@ -34,12 +34,14 @@
 //     Parameters:
 //       * pin1       - Pin to attach one of the speaker wires.
 //       * pin2       - Pin to attach the other speaker wire.
-//       * frequency  - Play the specified frequency indefinitely, turn off with toneAC().
+//       * frequency  - Play the specified frequency indefinitely, turn off with noToneAC2().
 //       * length     - [optional] Set the length to play in milliseconds. (default: 0 [forever], range: 0 to 2^32-1)
 //       * background - [optional] Play note in background or pause till finished? (default: false, values: true/false)
 //   noToneAC2()  - Stop playing.
 //
 // HISTORY:
+// 09/15/2015 v1.1 - Fix a potential race condition with _tAC2_time.
+//
 // 01/27/2013 v1.0 - Initial release.
 //
 // ---------------------------------------------------------------------------
