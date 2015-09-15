@@ -1,6 +1,6 @@
 // ---------------------------------------------------------------------------
 // Created by Tim Eckel - teckel@leethost.com
-// Copyright 2013 License: GNU GPL v3 http://www.gnu.org/licenses/gpl-3.0.html
+// Copyright 2015 License: GNU GPL v3 http://www.gnu.org/licenses/gpl-3.0.html
 //
 // See "toneAC2.h" for purpose, syntax, version history, links, and more.
 // ---------------------------------------------------------------------------
@@ -23,11 +23,11 @@ void toneAC2(uint8_t pin1, uint8_t pin2, unsigned int frequency, unsigned long l
   }
   if (top > 255) { noToneAC2(); return; } // Frequency is out of range, turn off sound and return.
 
-  if (length > 0) _tAC2_time = millis() + length; else _tAC2_time = 0xFFFFFFFF; // Set when the note should end, or play "forever".
+  if (length > 0) _tAC2_time = millis() + length - 1; else _tAC2_time = 0xFFFFFFFF; // Set when the note should end, or play "forever".
 
   if (_pinMask1 == 0) { // This gets the port registers and bitmaps for the two pins and sets the pins to output mode.
     _pinMask1   = digitalPinToBitMask(pin1);                            // Get the port register bitmask for pin 1.
-    _pinMask2   = digitalPinToBitMask(pin2);                            // Get the port register bitmask foo pin 2.
+    _pinMask2   = digitalPinToBitMask(pin2);                            // Get the port register bitmask for pin 2.
     _pinOutput1 = portOutputRegister(digitalPinToPort(pin1));           // Get the output port register for pin 1.
     _pinOutput2 = portOutputRegister(digitalPinToPort(pin2));           // Get the output port register for pin 2.
     _pinMode1   = (uint8_t *) portModeRegister(digitalPinToPort(pin1)); // Get the port mode register for pin 1.
