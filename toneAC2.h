@@ -40,7 +40,8 @@
 //   noToneAC2()  - Stop playing.
 //
 // HISTORY:
-// 09/15/2015 v1.1 - Fix a potential race condition with _tAC2_time.
+// 09/15/2015 v1.1 - Fix a potential race condition with _tAC2_time. Moved to
+// development to Bitbucket.
 //
 // 01/27/2013 v1.0 - Initial release.
 //
