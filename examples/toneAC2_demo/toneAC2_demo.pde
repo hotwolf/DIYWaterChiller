@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// Be sure to include an inline 100 ohm resistor on one pin as you normally do when connecting a piezo or speaker.
+// Be sure to include an in-line 100 ohm resistor on one pin as you normally do when connecting a piezo or speaker.
 // ---------------------------------------------------------------------------
 
 #include <toneAC2.h>
@@ -12,10 +12,8 @@ void setup() {} // Nothing to setup, just start playing!
 
 void loop() {
   for (unsigned long freq = 125; freq <= 15000; freq += 10) {  
-    toneAC2(2, 3, freq); // Play the frequency (125 Hz to 15 kHz sweep in 10 Hz steps).
-    delay(1);     // Wait 1 ms so you can hear it.
+    toneAC2(2, 3, freq, 1); // Play the frequency (125 Hz to 15 kHz sweep in 10 Hz steps) for 1ms.
   }
-  noToneAC2(); // Turn off toneAC2, can also use noToneAC2().
 
   delay(1000); // Wait a second.
 
