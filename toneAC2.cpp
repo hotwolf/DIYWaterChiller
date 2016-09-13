@@ -8,7 +8,7 @@
 #include "toneAC2.h"
 
 unsigned long _tAC2_time; // Used to track end note with timer when playing note in the background.
-uint8_t *_pinMode1, *_pinMode2;              // Pin modes.
+volatile uint8_t *_pinMode1, *_pinMode2;     // Pin modes.
 uint8_t _pinMask1 = 0, _pinMask2 = 0;        // Bitmask for pins.
 volatile uint8_t *_pinOutput1, *_pinOutput2; // Output port registers for each pin.
 int _tAC2_prescale[] = { 2, 16, 64, 128, 256, 512, 2048 }; // Prescaler.

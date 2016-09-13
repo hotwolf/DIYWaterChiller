@@ -6,8 +6,8 @@
 // Copyright 2015 License: GNU GPL v3 http://www.gnu.org/licenses/gpl-3.0.html
 //
 // LINKS:
-// Project home: http://code.google.com/p/arduino-tone-ac/
-// Blog: http://arduino.cc/forum/index.php/topic,142097.msg1066968.html
+// Project home: https://bitbucket.org/teckel12/arduino-toneac/wiki/Home
+// Blog: http://forum.arduino.cc/index.php?topic=142097.0
 //
 // DISCLAIMER:
 // This software is furnished "as is", without technical support, and with no 
@@ -56,12 +56,14 @@
     #include <WProgram.h>
   #endif
 
+  // This doesn't currently work. Would require more work than simply doing this.
   #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega128__)
     #define TCCR2A TCCR2
     #define TCCR2B TCCR2
     #define TIMSK2 TIMSK
     #define COM2A1 COM21
     #define COM2A0 COM20
+    #define OCIE2A OCIE2
     #define OCR2A OCR2
     #define TIMER2_COMPA_vect TIMER2_COMP_vect
   #endif
