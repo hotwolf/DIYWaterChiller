@@ -33,10 +33,10 @@ $d_sensor    =  6;                  //diameter of the temperature sensor
 $d_channel   = 10;                  //diameter of inner channel
 $l_insert    =  4;                  //Length of the sensor insert
 $t_wall      =  2;                  //thickness of the channel walls
-$d_primary   =  6;                  //inner hose diameter of the primary water circulation
-$d_secondary =  8;                  //inner hose diameter of the secondary water circulation
-$d_chiller   =  8;                  //inner hose diameter of the chiller connection
-$fn          = 64;
+$d_primary   =  7;                //inner hose diameter of the primary water circulation
+$d_secondary =  9;                //inner hose diameter of the secondary water circulation
+$d_chiller   =  9;                //inner hose diameter of the chiller connection
+$fn          = 18;
 
 //Water channel
 module channel() {
