@@ -28,7 +28,7 @@
 //#                                                                             #
 //###############################################################################
 //Parameters
-$d_cable     =  6;                  //diameter of the cable
+$d_cable     =  8;                  //diameter of the cable
 $fn          = 48;
 
 module cable_bracket() {

@@ -28,8 +28,8 @@
 //#                                                                             #
 //###############################################################################
 //Parameters
-$l_sensor    = 50;                  //length of the temperature sensor
-$d_sensor    =  6;                  //diameter of the temperature sensor
+$l_sensor    = 40;                  //length of the temperature sensor
+$d_sensor    =  7;                  //diameter of the temperature sensor
 $d_channel   = 10;                  //diameter of inner channel
 $l_insert    =  4;                  //Length of the sensor insert
 $t_wall      =  2;                  //thickness of the channel walls
@@ -130,7 +130,7 @@ module quad_sensor() {
                 translate([0,0,h_block]) {
                    rotate([0,0,90]) linear_extrude(2) 
                     text("S",12,valign="center", halign="center");
-                    linear_extrude(2) polygon([[14,0],[10,4],[10,-4]]);
+                    linear_extrude(2) polygon([[10.5,0],[6.5,4],[6.5,-4]]);
                 }
            }
            //Block 1
@@ -141,7 +141,7 @@ module quad_sensor() {
                 translate([0,0,h_block]) {
                     rotate([0,0,90]) linear_extrude(2) 
                     text("P",12,valign="center", halign="center");
-                    linear_extrude(2) polygon([[-14,0],[-10,4],[-10,-4]]);
+                    linear_extrude(2) polygon([[-10.5,0],[-6.5,4],[-6.5,-4]]);
                 }
            }
            //Block 2
@@ -152,7 +152,7 @@ module quad_sensor() {
                 translate([0,0,h_block]) {
                     rotate([0,0,90]) linear_extrude(2) 
                     text("P",12,valign="center", halign="center");
-                    linear_extrude(2) polygon([[14,0],[10,4],[10,-4]]);
+                    linear_extrude(2) polygon([[10.5,0],[6.5,4],[6.5,-4]]);
                 }
           }
            //Block 3
@@ -163,7 +163,7 @@ module quad_sensor() {
                 translate([0,0,h_block]) {
                     rotate([0,0,90]) linear_extrude(2) 
                     text("S",12,valign="center", halign="center");
-                    linear_extrude(2) polygon([[-14,0],[-10,4],[-10,-4]]);
+                    linear_extrude(2) polygon([[-10.5,0],[-6.5,4],[-6.5,-4]]);
                 }
            }
            //Mounting holes 
