@@ -22,7 +22,7 @@
 //#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Generic model of an aluminum water chiller block                          #
+//#   Generic model of a heat sink                                              #
 //#                                                                             #
 //###############################################################################
 //# Version History:                                                            #
@@ -31,7 +31,7 @@
 //#                                                                             #
 //###############################################################################
   
-//! Generic model of an aluminum water chiller block
+//! Generic model of a heat sink
 include <NopSCADlib/utils/core/core.scad>
 
 function hs_name(type)     = type[0];  //! Part code without shield type suffix

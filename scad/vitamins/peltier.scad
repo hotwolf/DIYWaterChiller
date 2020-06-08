@@ -31,7 +31,7 @@
 //#                                                                             #
 //###############################################################################
   
-//! Generic model of an aluminum water chiller block
+//! Generic model of a Peltier element
 include <NopSCADlib/utils/core/core.scad>
 
 function pe_name(type)     = type[0]; //! Part code without shield type suffix

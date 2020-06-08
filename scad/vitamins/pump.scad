@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Vitamins -Water Blocks                                    #
+//# DIYWaterChiller - Vitamins -Water Cooler Pump                               #
 //###############################################################################
 //#    Copyright 2020 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -22,7 +22,7 @@
 //#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Generic model of an aluminum water chiller block                          #
+//#   Model of a water pump with tank                                           #
 //#                                                                             #
 //###############################################################################
 //# Version History:                                                            #
@@ -31,62 +31,67 @@
 //#                                                                             #
 //###############################################################################
   
-//! Generic model of an aluminum water chiller block
+//! Model of a water pump wirh tank
 include <NopSCADlib/utils/core/core.scad>
 
-function wb_name(type)     = type[0]; //! Part code without shield type suffix
-function wb_Xdim(type)     = type[1]; //! X dimensions
-function wb_Ydim(type)     = type[2]; //! Y dimensions
-function wb_Zdim(type)     = type[3]; //! Z dimensions
-function wb_C1Xoffs(type)  = type[4]; //! X offset of the first connector
-function wb_C1Zoffs(type)  = type[5]; //! Z offset of the first connector
-function wb_C2Xoffs(type)  = type[6]; //! X offset of the second connector
-function wb_C2Zoffs(type)  = type[7]; //! Z offset of the second connector
-
-//Connector
-module wb_connector(x=0, z=0) {
-    
-    translate([x,0,z]) {  
-    
-        translate([0,0,0]) rotate([90,0,0]) cylinder(2,d=10); 
-        translate([0,0,0]) rotate([270,0,0]) rotate_extrude() 
-        polygon( points=[[2.2,  0  ],
-                         [2.2,-15  ],
-                         [3  ,-15  ],
-                         [4.6, -9.5],
-                         [4  , -9.5],
-                         [4  ,  0  ]]);
+//Tube shape
+module tube(h=10,id=58,od=60) {
+    difference() {
+        translate([0,0,0])  cylinder(h,d=od);
+        translate([0,0,-1]) cylinder(h+2,d=id);
     }
 }
 
-
-
-//Water block vitamin
-module water_block(type, center=false) { //! Draw a water block
-    vitamin(str("water_block(WB", wb_name(type), "): Water block ", wb_Xdim(type), "mm x ", wb_Ydim(type), "mm x ", wb_Zdim(type), "mm"));
-    //Local variables
-    Xdim    = wb_Xdim(type);
-    Ydim    = wb_Ydim(type);
-    Zdim    = wb_Zdim(type);
-    C1Xoffs = wb_C1Xoffs(type);
-    C1Zoffs = wb_C1Zoffs(type);
-    C2Xoffs = wb_C2Xoffs(type);
-    C2Zoffs = wb_C2Zoffs(type);
-    
-    color(silver)
-    translate([(center) ? -Xdim/2 : 0,
-               (center) ? -Ydim/2 : 0,
-               (center) ? -Zdim/2 : 0]) {
-                  
-        cube([Xdim,Ydim,Zdim]);
-        wb_connector(x=C1Xoffs,z=C1Zoffs);
-        wb_connector(x=C2Xoffs,z=C2Zoffs);
-                           
+//Connector
+module connector() {
+    color("silver") union() {
+        translate([0,0,0]) cylinder(3,d=17);
+        translate([0,0,3]) cylinder(2,d=17,$fn=6);       
+        translate([0,0,0]) rotate_extrude() 
+        polygon( points=[[3.0, 0],
+                         [3.0,23],
+                         [4.0,23],
+                         [4.7,18],
+                         [4.5,18],
+                         [4.5,15],
+                         [4.0,15],
+                         [4.5,13],
+                         [4.0,13],
+                         [4.5,11],
+                         [4.0,11],
+                         [4.5, 9],
+                         [4.5, 0]]);
     }
+}
+
+//Water pump vitamin
+module pump() { //! Draw a water pump
+    vitamin(str("pump(): Water pump"));
+
+    color("black")     translate([0,0,0])     cylinder(36,d=45);
+    color("black")     translate([0,0,36])    cylinder(16,d=48);
+    color("black")     translate([0,0,52])    cylinder(8,d=40);
+    color("black")     translate([0,0,60])    cylinder(13,d=18);
+    color("silver")    translate([0,0,73])    cylinder(5,d=18);
+    color("black")     translate([0,0,78])    cylinder(6,d=50);
+    color("black")     translate([0,0,84])    tube(h=8,id=10,od=48);
+    color("black")     translate([0,0,226])   cylinder(8,d=48);  
+    color([1,1,1,0.5]) translate([0,10,186])  tube(h=40,id=8,od=10);
+    color([0,0,1,0.5]) translate([0,0,92])    cylinder(100,d=48);
+    color([1,1,1,0.5]) translate([0,0,84])    tube(h=150,id=48,od=50); 
+    color("black")     translate([0,0,234])   cylinder(6,d=50); 
+    color("silver")    translate([0,-10,240]) cylinder(4,d=18);  
+                       translate([0,10,240])  connector();
+    
+    color("black")     translate([0,-15,55])  rotate([0,90,0]) cylinder(22,d=10);
+    color("black")     translate([22,-15,55]) rotate([0,90,0]) cylinder(6,d1=10,d2=18);
+    color("black")     translate([28,-15,55]) rotate([0,90,0]) cylinder(8,d=18);
+                       translate([36,-15,55]) rotate([0,90,0]) connector();
 } 
     
 if($preview) {      
-         water_block(["40x80", 40, 80, 12.5, 6, 6.25, 34, 6.25], false);     
+    pump();
+    //connector();    
 }
  
     

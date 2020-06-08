@@ -36,6 +36,7 @@ include <NopSCADlib/lib.scad>   // Includes all the vitamins and utilities in No
 include <./vitamins/water_blocks.scad>
 include <./vitamins/peltiers.scad>
 include <./vitamins/heat_sinks.scad>
+include <./vitamins/pump.scad>
 
 
 
@@ -46,7 +47,8 @@ assembly("main") {
     
 //        water_block(WB40x80, true);
 //        peltier(TEC1_12706, true);
-        heat_sink(HS_WB40x40, true);     
+//        heat_sink(HS_WB40x40, true); 
+         pump();    
 }
 
 if($preview)
