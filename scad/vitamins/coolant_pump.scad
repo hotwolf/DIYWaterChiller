@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Vitamins -Water Cooler Pump                               #
+//# DIYWaterChiller - Vitamins - Coolant Pump                                   #
 //###############################################################################
 //#    Copyright 2020 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -22,52 +22,56 @@
 //#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Model of a water pump with tank                                           #
+//#   Model of a coolant pump with tank                                         #
 //#                                                                             #
 //###############################################################################
 //# Version History:                                                            #
 //#   June  7, 2020                                                             #
 //#      - Initial release                                                      #
 //#                                                                             #
+//#   July 25, 2020                                                             #
+//#      - Changed module name                                                  #
+//#                                                                             #
 //###############################################################################
   
 //! Model of a water pump wirh tank
 include <NopSCADlib/utils/core/core.scad>
 
-//Tube shape
-module tube(h=10,id=58,od=60) {
-    difference() {
-        translate([0,0,0])  cylinder(h,d=od);
-        translate([0,0,-1]) cylinder(h+2,d=id);
-    }
-}
-
-//Connector
-module connector() {
-    color("silver") union() {
-        translate([0,0,0]) cylinder(3,d=17);
-        translate([0,0,3]) cylinder(2,d=17,$fn=6);       
-        translate([0,0,0]) rotate_extrude() 
-        polygon( points=[[3.0, 0],
-                         [3.0,23],
-                         [4.0,23],
-                         [4.7,18],
-                         [4.5,18],
-                         [4.5,15],
-                         [4.0,15],
-                         [4.5,13],
-                         [4.0,13],
-                         [4.5,11],
-                         [4.0,11],
-                         [4.5, 9],
-                         [4.5, 0]]);
-    }
-}
-
 //Water pump vitamin
-module pump() { //! Draw a water pump
-    vitamin(str("pump(): Water pump"));
+module coolant_pump() { //! Draw a coolant pump
+    vitamin(str("coolant_pump(): Coolant pump"));
 
+    //Tube shape
+    module tube(h=10,id=58,od=60) {
+        difference() {
+            translate([0,0,0])  cylinder(h,d=od);
+            translate([0,0,-1]) cylinder(h+2,d=id);
+        }
+    }
+    
+    //Connector
+    module connector() {
+        color("silver") union() {
+            translate([0,0,0]) cylinder(3,d=17);
+            translate([0,0,3]) cylinder(2,d=17,$fn=6);       
+            translate([0,0,0]) rotate_extrude() 
+            polygon( points=[[3.0, 0],
+                             [3.0,23],
+                             [4.0,23],
+                             [4.7,18],
+                             [4.5,18],
+                             [4.5,15],
+                             [4.0,15],
+                             [4.5,13],
+                             [4.0,13],
+                             [4.5,11],
+                             [4.0,11],
+                             [4.5, 9],
+                             [4.5, 0]]);
+        }
+    }
+
+    //Pump
     color("black")     translate([0,0,0])     cylinder(36,d=45);
     color("black")     translate([0,0,36])    cylinder(16,d=48);
     color("black")     translate([0,0,52])    cylinder(8,d=40);
@@ -90,7 +94,7 @@ module pump() { //! Draw a water pump
 } 
     
 if($preview) {      
-    pump();
+    coolant_pump();
     //connector();    
 }
  
