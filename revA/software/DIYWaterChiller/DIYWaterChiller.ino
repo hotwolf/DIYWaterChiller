@@ -38,16 +38,15 @@
 #define VERSION_STR "DIYWaterChiller FW00.00"
 
 //Display definitions
-#define TFT_DC   9
+#define TFT_DC  12
 #define TFT_CS  -1
-#define TFT_RST 8
+#define TFT_RST -1
 #define TFT_SDI 11
 #define TFT_SCK 13
-#define TFT_LED  7
 
 //Timer interrupt definitions
-#define USE_TIMER_1           false
-#define USE_TIMER_2           true
+#define USE_TIMER_1           true
+#define USE_TIMER_2           false
 #define TIMER_INTERVAL_100MS  100L
 #define TIMER_INTERVAL_1S     1000L
 
@@ -55,15 +54,22 @@
 #define FLOW_IN   2
 #define FLOW_OUT  3
 
+//DS18B20 definitions
+#define ONEWIRE_SEARCH  0
+#define ONEWIRE_PIN     4
+
 //Libraries
 #include <SPI.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_ILI9341.h>
 #include <TimerInterrupt.h>
 #include <ISR_Timer.h>
+#include <OneWire.h>
+#include <DS18B20.h>
 
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC,TFT_RST);
-ISR_Timer ISR_timer;
+ISR_Timer        ISR_timer;
+DS18B20          ds(ONEWIRE_PIN);
 
 int flow_in_cnt, flow_out_cnt;   //Flow meter counters
 int flow_in_freq, flow_out_freq; //Flow meter frequency
@@ -84,23 +90,26 @@ void execute_every_1s ()
   flow_in_cnt  = 0;
   flow_out_freq = flow_in_cnt;
   flow_out_cnt  = 0;
+}
 
-  Serial.println("execute_every_1s()"); 
+//Timer handler
+void TimerHandler()
+{
+  execute_every_100ms ();
 
+  ISR_timer.run();
 }
 
 //Flow meter inlet event
 void flow_in_isr()
 {
    flow_in_cnt++;
-  Serial.println("flow_in_isr()"); 
 }
 
 //Flow meter inlet event
 void flow_out_isr ()
 {
     flow_out_cnt++;
-   Serial.println("flow_out_isr()"); 
 }
 
 //Setup
@@ -109,70 +118,104 @@ void setup() {
   //Setup SCI
   Serial.begin(9600);
   Serial.println(VERSION_STR); 
-  Serial.println("Set up dispay!"); 
  
-  //Setup TFT display
-  tft.begin();
-  Serial.println("1!"); 
-  tft.fillScreen(ILI9341_BLUE);  
-  Serial.println("2!"); 
-  tft.setTextSize(1);
-  Serial.println("3!"); 
-  tft.setCursor(0, 0);
-  Serial.println("4!"); 
-  tft.setTextColor(ILI9341_WHITE);
-  Serial.println("5!"); 
-  tft.println(VERSION_STR);
-  Serial.println("Dispay set up!"); 
+  Serial.print("Devices: ");
+  Serial.println(ds.getNumberOfDevices());
+  Serial.println();
 
-   //Setup flow meters
-  pinMode(FLOW_IN, INPUT);  
-  pinMode(FLOW_OUT, INPUT);
-  attachInterrupt(digitalPinToInterrupt(FLOW_IN), flow_in_isr, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(FLOW_OUT), flow_out_isr, CHANGE);
-  flow_in_cnt   =  0;
-  flow_out_cnt  =  0;
-  flow_in_freq  =  0; 
-  flow_out_freq =  0;
-  flow_in_disp  = -1;
-  flow_out_disp = -1;
-  tft.setCursor(0, 10);
-  tft.println("IN [Hz]:");
-  tft.setCursor(0, 30);
-  tft.println("OUT [Hz]:");
+  // //Setup TFT display
+  // tft.begin();
+  // tft.fillScreen(ILI9341_BLUE);  
+  // tft.setTextSize(1);
+  // tft.setCursor(0, 0);
+  // tft.setTextColor(ILI9341_WHITE);
+  // tft.println(VERSION_STR);
+
+  //  //Setup flow meters
+  // pinMode(FLOW_IN, INPUT_PULLUP);  
+  // pinMode(FLOW_OUT, INPUT_PULLUP);
+  // // attachInterrupt(digitalPinToInterrupt(FLOW_IN), flow_in_isr, CHANGE);
+  // // attachInterrupt(digitalPinToInterrupt(FLOW_OUT), flow_out_isr, CHANGE);
+  // flow_in_cnt   =  0;
+  // flow_out_cnt  =  0;
+  // flow_in_freq  =  0; 
+  // flow_out_freq =  0;
+  // flow_in_disp  = -1;
+  // flow_out_disp = -1;
+  // tft.setCursor(0, 10);
+  // tft.println("IN [Hz]:");
+  // tft.setCursor(0, 30);
+  // tft.println("OUT [Hz]:");
 
   //Setup timer
-  ITimer2.init();
-  // Interval in unsigned long millisecs
-  ITimer2.attachInterruptInterval(TIMER_INTERVAL_100MS, TimerHandler);
-  ISR_timer.setInterval(TIMER_INTERVAL_1S, execute_every_1s);
+  // ITimer1.init();
+  // // Interval in unsigned long millisecs
+  // ITimer1.attachInterruptInterval(TIMER_INTERVAL_100MS, TimerHandler);
+  // ISR_timer.setInterval(TIMER_INTERVAL_1S, execute_every_1s);
 
 
 }
 
 //Loop
-void loop(void) {
+void loop() {
 
-  //Display IN flow
-  if (flow_in_disp != flow_in_freq) {
-    flow_in_disp = flow_in_freq;
-      tft.setCursor(0, 20);
-      tft.println(flow_in_disp);
+  // //Display IN flow
+  // if (flow_in_disp != flow_in_freq) {
+  //   flow_in_disp = flow_in_freq;
+  //     tft.setCursor(0, 20);
+  //     tft.println(flow_in_disp);
+  // }
+
+  // //Display OUT flow
+  // if (flow_out_disp != flow_out_freq) {
+  //   flow_out_disp = flow_out_freq;
+  //     tft.setCursor(0, 40);
+  //     tft.println(flow_in_disp);
+  // }
+  Serial.println("scan...");
+  while (ds.selectNext()) {
+    switch (ds.getFamilyCode()) {
+      case MODEL_DS18S20:
+        Serial.println("Model: DS18S20/DS1820");
+        break;
+      case MODEL_DS1822:
+        Serial.println("Model: DS1822");
+        break;
+      case MODEL_DS18B20:
+        Serial.println("Model: DS18B20");
+        break;
+      default:
+        Serial.println("Unrecognized Device");
+        break;
+    }
+
+    uint8_t address[8];
+    ds.getAddress(address);
+
+    Serial.print("Address:");
+    for (uint8_t i = 0; i < 8; i++) {
+      Serial.print(" ");
+      Serial.print(address[i]);
+    }
+    Serial.println();
+
+    Serial.print("Resolution: ");
+    Serial.println(ds.getResolution());
+
+    Serial.print("Power Mode: ");
+    if (ds.getPowerMode()) {
+      Serial.println("External");
+    } else {
+      Serial.println("Parasite");
+    }
+
+    Serial.print("Temperature: ");
+    Serial.print(ds.getTempC());
+    Serial.print(" C / ");
+    Serial.print(ds.getTempF());
+    Serial.println(" F");
+    Serial.println();
   }
 
-  //Display OUT flow
-  if (flow_out_disp != flow_out_freq) {
-    flow_out_disp = flow_out_freq;
-      tft.setCursor(0, 40);
-      tft.println(flow_in_disp);
-  }
-}
-
-
-//Timer handler
-void TimerHandler()
-{
-  execute_every_100ms ();
-
-  ISR_timer.run();
+  delay(10000);
 }
