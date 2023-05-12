@@ -37,124 +37,45 @@
 // Common definitions
 #define VERSION_STR "DIYWaterChiller FW00.00"
 
-//Pump driver (TimerOne) definitions
-
-//Periodical interript (TimerTwo) definitions
-
-
-
-
-//Code running every 1s
-//inline void execute_every_1s() __attribute__((always_inline));
-void periodic_isr ()
-{
-  //Swap sensor data  
-  flowSense_previous  = sensors_current;
-  flowSense_current   = sensors_next;
-  flowSense_next->in  = 0;
-  flowSense_next->out = 0;
-  start_cycle         = true;
-}
-
-//Flow meter inlet event
-void flow_in_isr()
-{
-   flowSense_next->in++;
-}
-
-//Flow meter inlet event
-void flow_out_isr ()
-{
-    flowSensors_next->out++;
-}
-
-
-
-
-
 //Setup
 void setup() {
-  //Basic setup of all components
-  setup_Safety();
-  setup_Pumps();
-  setup_Display();
-  setup_FlowSensors();
-  setup_DS18B20s();
-  setup_Keys();
-  setup_Serial();
-  setup_EEPROM();
-  setup_Control();
+  //Minimal setup of all components
+  safety_setup();
+  pump_setup();
+  disp_setup();
+  flow_setup();
+  temp_setup();
+  keys_setup();
+  serial_setup();
+  eeprom_setup();
+  ctrloop_setup();
  
   //Detect temperature sensors
-  detect_DS18B20s();
-)
-
-
-  //Initialize variables
-  sensors_next     = &sensors_mem[0]; //upcoming status
-  sensors_current  = &sensors_mem[1]; //Current status
-  sensors_previous = &sensors_mem[2]; //Previous status
-  sensors_next->in_flow  = 0;
-  sensors_next->out_flow = 0;
-
-  actuators_current  = actuators_mem[0]; //Current status
-  actuators_previous = actuators_mem[1]; //Previous status
-
-  //Setup SCI
-  Serial.begin(9600);
-  Serial.println(VERSION_STR); 
- 
-  //Setup TFT display
-  tft.begin();
-  draw_background();
- 
-  //Setup Thermometers
-
-
-
-
-
-  //Serial.print("Devices: ");
-  //Serial.println(ds.getNumberOfDevices());
-  //Serial.println();
-
-  //Setup TFT display
-  tft.begin();
-  draw_background();
-  //tft.fillScreen(ILI9341_BLUE);  
-  // tft.setTextSize(1);
-  // tft.setCursor(0, 0);
-  // tft.setTextColor(ILI9341_WHITE);
-  // tft.println(VERSION_STR);
-
-  //  //Setup flow meters
-  // pinMode(FLOW_IN, INPUT_PULLUP);  
-  // pinMode(FLOW_OUT, INPUT_PULLUP);
-  // // attachInterrupt(digitalPinToInterrupt(FLOW_IN), flow_in_isr, CHANGE);
-  // // attachInterrupt(digitalPinToInterrupt(FLOW_OUT), flow_out_isr, CHANGE);
-  // flow_in_cnt   =  0;
-  // flow_out_cnt  =  0start_cycle ;
-  // flow_in_freq  =  0; 
-  // flow_out_freq =  0;
-  // flow_in_disp  = -1;
-  // flow_out_disp = -1;
-  // tft.setCursor(0, 10);
-  // tft.println("IN [Hz]:");
-  // tft.setCursor(0, 30);
-  // tft.println("OUT [Hz]:");
-
- 
+  temp_detect();
+  
+  //Start application
+  disp_drawBackground();
+  flow_start();
+  ctrloop_start();
 }
 
 //Loop
 void loop() {
    //execute once after each periodic ISR
-   if (start_cycle) {
-      start_cycle = false;
+   if (ctrloop_is_new_cycle) {
+     
+      //Check for leakage
 
       //Read temperatures
       
+      //Check inlet temperature
 
+      //Calculate control loop cyccle
+
+      //Drive pumps
+
+
+      //Update display
 
 
    }

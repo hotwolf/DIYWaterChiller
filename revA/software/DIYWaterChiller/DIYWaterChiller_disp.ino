@@ -34,7 +34,7 @@
 //#                                                                             #
 //###############################################################################
 
-//Display definitions
+//IO definitions
 #define TFT_DC  12
 #define TFT_CS  -1
 #define TFT_RST -1
@@ -79,13 +79,22 @@ const uint16_t col_laserTop2  = (0x93&0xF8)<<8  | //red
                                 (0xEC&0xF8)>>3;   //blue
 
 
+//Minimal setup
+inline void setup_Display() __attribute__((always_inline));
+void setup_Display() {
+  //Setup TFT display
+  tft.begin();
+}
+
+//Clear screen
+inline void clear_screen() __attribute__((always_inline));
+void clear_screen() {
+   tft.fillScreen(col_background); 
+}
 
 
 
-
-
-
-//Screenback ground
+//Screen background
 inline void draw_background() __attribute__((always_inline));
 void draw_background() {
   tft.fillScreen(col_background); 

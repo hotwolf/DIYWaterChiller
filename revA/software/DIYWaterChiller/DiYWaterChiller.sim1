@@ -24,11 +24,11 @@
 
 <item itemtype="Ground" CircId="Ground-462" mainComp="false" Show_id="false" Show_Val="false" Pos="548,108" rotation="0" hflip="1" vflip="1" label="Ground-462" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="Socket" CircId="Socket-483" mainComp="false" Show_id="true" Show_Val="false" Pos="348,28" rotation="0" hflip="1" vflip="1" label="DS18B20" idLabPos="6,-22" labelrot="0" valLabPos="-16,20" valLabRot="0" Size="3 _Pins" />
+<item itemtype="Socket" CircId="Socket-483" mainComp="false" Show_id="true" Show_Val="false" Pos="356,12" rotation="-90" hflip="1" vflip="1" label="DS18B20" idLabPos="18.3502,-35.6502" labelrot="90" valLabPos="-16,20" valLabRot="0" Size="3 _Pins" />
 
-<item itemtype="Ground" CircId="Ground-484" mainComp="false" Show_id="false" Show_Val="false" Pos="332,44" rotation="0" hflip="1" vflip="1" label="Ground-484" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+<item itemtype="Ground" CircId="Ground-484" mainComp="false" Show_id="false" Show_Val="false" Pos="356,44" rotation="0" hflip="1" vflip="1" label="Ground-484" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="Rail" CircId="Rail-485" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="316,-4" rotation="0" hflip="1" vflip="1" label="Rail-485" idLabPos="-16,-24" labelrot="0" valLabPos="-21.5376,-5" valLabRot="0" Voltage="5 V" />
+<item itemtype="Rail" CircId="Rail-485" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="308,28" rotation="0" hflip="1" vflip="1" label="Rail-485" idLabPos="-16,-24" labelrot="0" valLabPos="-21.5376,-5" valLabRot="0" Voltage="5 V" />
 
 <item itemtype="Subcircuit" CircId="L293-493" mainComp="false" Show_id="true" Show_Val="false" Pos="252,-100" rotation="0" hflip="-1" vflip="1" label="L293P" idLabPos="27,-14" labelrot="0" valLabPos="-16,20" valLabRot="0" Logic_Symbol="true" />
 
@@ -60,11 +60,11 @@
 
 <item itemtype="WaveGen" CircId="WaveGen-817" mainComp="false" Show_id="true" Show_Val="false" Pos="220,112" rotation="0" hflip="1" vflip="1" label="Flow Meter (out)" idLabPos="-108,-7" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="false" Running="false" Wave_Type="Square" Freq="20 Hz" Steps="10 _Steps" Duty="50 _%" Always_On="false" Semi_Ampli="5 V" Mid_Volt="0 V" />
 
-<item itemtype="Socket" CircId="Socket-893" mainComp="false" Show_id="true" Show_Val="false" Pos="476,-20" rotation="-90" hflip="1" vflip="1" label="Relay" idLabPos="18.813,-26.6127" labelrot="90" valLabPos="-16,20" valLabRot="0" Size="3 _Pins" />
+<item itemtype="Socket" CircId="Socket-893" mainComp="false" Show_id="true" Show_Val="false" Pos="468,12" rotation="-90" hflip="1" vflip="1" label="Relay" idLabPos="18.813,-26.6127" labelrot="90" valLabPos="-16,20" valLabRot="0" Size="3 _Pins" />
 
-<item itemtype="Ground" CircId="Ground-894" mainComp="false" Show_id="false" Show_Val="false" Pos="476,12" rotation="0" hflip="1" vflip="1" label="Ground-894" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+<item itemtype="Ground" CircId="Ground-894" mainComp="false" Show_id="false" Show_Val="false" Pos="468,44" rotation="0" hflip="1" vflip="1" label="Ground-894" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="Rail" CircId="Rail-895" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="432,-4" rotation="0" hflip="1" vflip="1" label="Rail-895" idLabPos="-16,-24" labelrot="0" valLabPos="-21.5376,-5" valLabRot="0" Voltage="5 V" />
+<item itemtype="Rail" CircId="Rail-895" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="424,28" rotation="0" hflip="1" vflip="1" label="Rail-895" idLabPos="-16,-24" labelrot="0" valLabPos="-21.5376,-5" valLabRot="0" Voltage="5 V" />
 
 <item itemtype="Node" CircId="Node-432" mainComp="false" Pos="492,216" />
 
@@ -145,12 +145,6 @@
 <item itemtype="Connector" uid="connector-835" startpinid="Node-477-1" endpinid="Push-461-switch0pinN" pointList="548,48,548,12,540,12" />
 
 <item itemtype="Connector" uid="connector-836" startpinid="Push-410-pinP0" endpinid="Node-441-0" pointList="492,252,516,252" />
-
-<item itemtype="Connector" uid="connector-837" startpinid="Socket-483-pin2" endpinid="Ground-484-Gnd" pointList="340,20,332,20,332,28" />
-
-<item itemtype="Connector" uid="connector-838" startpinid="Socket-483-pin0" endpinid="Rail-485-outnod" pointList="340,4,332,4,332,-4" />
-
-<item itemtype="Connector" uid="connector-839" startpinid="Socket-483-pin1" endpinid="Uno-396-4" pointList="340,12,300,12,300,108,316,108" />
 
 <item itemtype="Connector" uid="connector-840" startpinid="Node-500-2" endpinid="L293-494-34EN" pointList="284,-44,292,-44" />
 
@@ -258,10 +252,16 @@
 
 <item itemtype="Connector" uid="connector-892" startpinid="Bus-795-ePin0" endpinid="Bus-794-busPinI" pointList="-64,292,252,292,252,228" />
 
-<item itemtype="Connector" uid="Connector-896" startpinid="Socket-893-pin1" endpinid="Uno-396-A5" pointList="460,-12,460,76" />
+<item itemtype="Connector" uid="Connector-897" startpinid="Socket-893-pin0" endpinid="Rail-895-outnod" pointList="444,20,444,28,440,28" />
 
-<item itemtype="Connector" uid="Connector-897" startpinid="Socket-893-pin0" endpinid="Rail-895-outnod" pointList="452,-12,452,-4,448,-4" />
+<item itemtype="Connector" uid="Connector-910" startpinid="Rail-485-outnod" endpinid="Socket-483-pin0" pointList="324,28,332,28,332,20" />
 
-<item itemtype="Connector" uid="Connector-898" startpinid="Socket-893-pin2" endpinid="Ground-894-Gnd" pointList="468,-12,468,-4,476,-4" />
+<item itemtype="Connector" uid="Connector-911" startpinid="Ground-484-Gnd" endpinid="Socket-483-pin2" pointList="356,28,348,28,348,20" />
+
+<item itemtype="Connector" uid="Connector-912" startpinid="Socket-483-pin1" endpinid="Uno-396-4" pointList="340,20,340,52,300,52,300,108,316,108" />
+
+<item itemtype="Connector" uid="Connector-913" startpinid="Socket-893-pin1" endpinid="Uno-396-A5" pointList="452,20,452,52,460,52,460,76" />
+
+<item itemtype="Connector" uid="Connector-914" startpinid="Ground-894-Gnd" endpinid="Socket-893-pin2" pointList="468,28,460,28,460,20" />
 
 </circuit>

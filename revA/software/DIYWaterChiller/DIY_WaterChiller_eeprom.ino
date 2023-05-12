@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Firmware - Flow Sensors                                    #
+//# DIYWaterChiller - Firmware - EEPROM                                         #
 //###############################################################################
 //#    Copyright 2023 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -22,7 +22,7 @@
 //#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Firmware for the DIYWaterChiller (flow sensor functions)                  #
+//#   Firmware for the DIYWaterChiller (EEPROM functions)                       #
 //#                                                                             #
 //#   !!! Set the Sketchbook location to               !!!                      #
 //#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #
@@ -34,6 +34,29 @@
 //#                                                                             #
 //###############################################################################
 
-//Flow meter definitions
-#define FLOW_IN   2
-#define FLOW_OUT  3
+//Libraries
+#include <EEPROM.h>
+
+
+
+
+
+
+//Minimal setup
+inline void setup_EEPROM() __attribute__((always_inline));
+void setup_EEPROM() {
+
+
+
+}
+
+//Check if an EEPROM record has been stored
+//inline bool EEPROM_record_exists() __attribute__((always_inline));
+bool EEPROM_record_exists() {
+
+  return false;
+
+}
+
+
+

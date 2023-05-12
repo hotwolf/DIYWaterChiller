@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Firmware - DS18B20                                        #
+//# DIYWaterChiller - Firmware - Controller                                     #
 //###############################################################################
 //#    Copyright 2023 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -22,7 +22,7 @@
 //#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Firmware for the DIYWaterChiller (temperature sensor functions)           #
+//#   Firmware for the DIYWaterChiller (dontroller functions)                   #
 //#                                                                             #
 //#   !!! Set the Sketchbook location to               !!!                      #
 //#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #
@@ -33,3 +33,75 @@
 //#      - Initial release                                                      #
 //#                                                                             #
 //###############################################################################
+
+//Control loop definitions
+#define CONTROL_LOOP_PERIOD 
+
+//Libraries
+#include <TimerTwo.h>
+
+const uint16_t Control_period = 1000;
+
+//Minimal setup
+inline void setup_Control() __attribute__((always_inline));
+void setup_Control() {
+}
+
+/Start control loop
+inline void start_Control() __attribute__((always_inline));
+void start_Control() {
+  //Initialize timer 2
+  Timer2.init(, ISR_Control);
+  //
+
+…}
+
+//ISRs
+//Control loop cycle
+void ISR_Control() {
+
+
+
+   flowSense_next->in++;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Actuator data
+typedef struct
+{
+        uint16_t in_pump;       //Inlet pump strength [100%/1023]
+        uint16_t out_pump;      //Ou sensors_next->in_flow = 0;tlet pump strength [100%/1023]
+        bool     enable_laser;  //Relais control 
+} actuators
+
+actuators[3] actuator_mem;
+actuators   *actuators_next;     //upcoming status
+actuators   *actuators_current;  //Current status
+actuators   *actuators_previous; //Previous status
+
+//Control cycle
+bool start_cycle; //Start new iteration
+

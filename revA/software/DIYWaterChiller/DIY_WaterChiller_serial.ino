@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Firmware - Controller                                     #
+//# DIYWaterChiller - Firmware - Serial                                          #
 //###############################################################################
 //#    Copyright 2023 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -22,7 +22,7 @@
 //#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Firmware for the DIYWaterChiller (dontroller functions)                   #
+//#   Firmware for the DIYWaterChiller (serial communication functions)         #
 //#                                                                             #
 //#   !!! Set the Sketchbook location to               !!!                      #
 //#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #
@@ -34,44 +34,9 @@
 //#                                                                             #
 //###############################################################################
 
-//Libraries
-#include <TimerTwo.h>
-
-
-//Sensor data
-typedef struct {
-        float    cold;     //Water temperature in the cold tank [°C]
-        float    warm;     //Water temperature in the warm tank [°C]
-        float    in;       //Inlet water temperature [°C]
-        float    out;      //Outlet water temperature [°C]
-} tempSensors
-tempSensors[2] tempSense_mem;
-tempSensors   *tempSense_current;  //Current status
-tempSensors   *tempSense_previous; //Previous status
-
-typedef struct {
-        uint8_t  in;       //Inlet flow rate [pulse/s]
-        uint8_t  out;      //Outlet flow rate [pulse/s]
-} flowSensors
-
-flowSensors[3] flowSense_mem;
-flowSensors   *flowSensors_next;     //upcoming status
-flowSensors   *flowSensors_current;  //Current status
-flowSensors   *flowSensors_previous; //Previous status
-
-//Actuator data
-typedef struct
+//Minimal setup
+inline void setup_Serial() __attribute__((always_inline));
+void setup_Serial()
 {
-        uint16_t in_pump;       //Inlet pump strength [100%/1023]
-        uint16_t out_pump;      //Ou sensors_next->in_flow = 0;tlet pump strength [100%/1023]
-        bool     enable_laser;  //Relais control 
-} actuators
-
-actuators[3] actuator_mem;
-actuators   *actuators_next;     //upcoming status
-actuators   *actuators_current;  //Current status
-actuators   *actuators_previous; //Previous status
-
-//Control cycle
-bool start_cycle; //Start new iteration
-
+ Serial.begin(9600);
+}
