@@ -25,7 +25,7 @@
 //#   Firmware for the DIYWaterChiller                                          #
 //#                                                                             #
 //#   !!! Set the Sketchbook location to               !!!                      #
-//#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #   
+//#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #
 //#                                                                             #
 //###############################################################################
 //# Version History:                                                            #
@@ -37,95 +37,91 @@
 // Common definitions
 #define VERSION_STR "DIYWaterChiller FW00.00"
 
-//Display definitions
-#define TFT_DC  12
-#define TFT_CS  -1
-#define TFT_RST -1
-#define TFT_SDI 11
-#define TFT_SCK 13
+//Pump driver (TimerOne) definitions
 
-//Timer interrupt definitions
-#define USE_TIMER_1           true
-#define USE_TIMER_2           false
-#define TIMER_INTERVAL_100MS  100L
-#define TIMER_INTERVAL_1S     1000L
+//Periodical interript (TimerTwo) definitions
 
-//Flow meter definitions
-#define FLOW_IN   2
-#define FLOW_OUT  3
 
-//DS18B20 definitions
-#define ONEWIRE_SEARCH  0
-#define ONEWIRE_PIN     4
 
-//Libraries
-#include <SPI.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_ILI9341.h>
-#include <TimerInterrupt.h>
-#include <ISR_Timer.h>
-#include <OneWire.h>
-#include <DS18B20.h>
-
-Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC,TFT_RST);
-ISR_Timer        ISR_timer;
-DS18B20          ds(ONEWIRE_PIN);
-
-int flow_in_cnt, flow_out_cnt;   //Flow meter counters
-int flow_in_freq, flow_out_freq; //Flow meter frequency
-int flow_in_disp, flow_out_disp; //Flow meter display value
-
-//Code running every 100ms
-//inline void execute_every_100ms() __attribute__((always_inline));
-void execute_every_100ms ()
-{
-
-}
 
 //Code running every 1s
 //inline void execute_every_1s() __attribute__((always_inline));
-void execute_every_1s ()
+void periodic_isr ()
 {
-  flow_in_freq = flow_in_cnt;
-  flow_in_cnt  = 0;
-  flow_out_freq = flow_in_cnt;
-  flow_out_cnt  = 0;
-}
-
-//Timer handler
-void TimerHandler()
-{
-  execute_every_100ms ();
-
-  ISR_timer.run();
+  //Swap sensor data  
+  flowSense_previous  = sensors_current;
+  flowSense_current   = sensors_next;
+  flowSense_next->in  = 0;
+  flowSense_next->out = 0;
+  start_cycle         = true;
 }
 
 //Flow meter inlet event
 void flow_in_isr()
 {
-   flow_in_cnt++;
+   flowSense_next->in++;
 }
 
 //Flow meter inlet event
 void flow_out_isr ()
 {
-    flow_out_cnt++;
+    flowSensors_next->out++;
 }
+
+
+
+
 
 //Setup
 void setup() {
+  //Basic setup of all components
+  setup_Safety();
+  setup_Pumps();
+  setup_Display();
+  setup_FlowSensors();
+  setup_DS18B20s();
+  setup_Keys();
+  setup_Serial();
+  setup_EEPROM();
+  setup_Control();
+ 
+  //Detect temperature sensors
+  detect_DS18B20s();
+)
+
+
+  //Initialize variables
+  sensors_next     = &sensors_mem[0]; //upcoming status
+  sensors_current  = &sensors_mem[1]; //Current status
+  sensors_previous = &sensors_mem[2]; //Previous status
+  sensors_next->in_flow  = 0;
+  sensors_next->out_flow = 0;
+
+  actuators_current  = actuators_mem[0]; //Current status
+  actuators_previous = actuators_mem[1]; //Previous status
 
   //Setup SCI
   Serial.begin(9600);
   Serial.println(VERSION_STR); 
  
-  Serial.print("Devices: ");
-  Serial.println(ds.getNumberOfDevices());
-  Serial.println();
+  //Setup TFT display
+  tft.begin();
+  draw_background();
+ 
+  //Setup Thermometers
 
-  // //Setup TFT display
-  // tft.begin();
-  // tft.fillScreen(ILI9341_BLUE);  
+
+
+
+
+  //Serial.print("Devices: ");
+  //Serial.println(ds.getNumberOfDevices());
+  //Serial.println();
+
+  //Setup TFT display
+  tft.begin();
+  draw_background();
+  //tft.fillScreen(ILI9341_BLUE);  
   // tft.setTextSize(1);
   // tft.setCursor(0, 0);
   // tft.setTextColor(ILI9341_WHITE);
@@ -137,7 +133,7 @@ void setup() {
   // // attachInterrupt(digitalPinToInterrupt(FLOW_IN), flow_in_isr, CHANGE);
   // // attachInterrupt(digitalPinToInterrupt(FLOW_OUT), flow_out_isr, CHANGE);
   // flow_in_cnt   =  0;
-  // flow_out_cnt  =  0;
+  // flow_out_cnt  =  0start_cycle ;
   // flow_in_freq  =  0; 
   // flow_out_freq =  0;
   // flow_in_disp  = -1;
@@ -147,75 +143,19 @@ void setup() {
   // tft.setCursor(0, 30);
   // tft.println("OUT [Hz]:");
 
-  //Setup timer
-  // ITimer1.init();
-  // // Interval in unsigned long millisecs
-  // ITimer1.attachInterruptInterval(TIMER_INTERVAL_100MS, TimerHandler);
-  // ISR_timer.setInterval(TIMER_INTERVAL_1S, execute_every_1s);
-
-
+ 
 }
 
 //Loop
 void loop() {
+   //execute once after each periodic ISR
+   if (start_cycle) {
+      start_cycle = false;
 
-  // //Display IN flow
-  // if (flow_in_disp != flow_in_freq) {
-  //   flow_in_disp = flow_in_freq;
-  //     tft.setCursor(0, 20);
-  //     tft.println(flow_in_disp);
-  // }
+      //Read temperatures
+      
 
-  // //Display OUT flow
-  // if (flow_out_disp != flow_out_freq) {
-  //   flow_out_disp = flow_out_freq;
-  //     tft.setCursor(0, 40);
-  //     tft.println(flow_in_disp);
-  // }
-  Serial.println("scan...");
-  while (ds.selectNext()) {
-    switch (ds.getFamilyCode()) {
-      case MODEL_DS18S20:
-        Serial.println("Model: DS18S20/DS1820");
-        break;
-      case MODEL_DS1822:
-        Serial.println("Model: DS1822");
-        break;
-      case MODEL_DS18B20:
-        Serial.println("Model: DS18B20");
-        break;
-      default:
-        Serial.println("Unrecognized Device");
-        break;
-    }
 
-    uint8_t address[8];
-    ds.getAddress(address);
 
-    Serial.print("Address:");
-    for (uint8_t i = 0; i < 8; i++) {
-      Serial.print(" ");
-      Serial.print(address[i]);
-    }
-    Serial.println();
-
-    Serial.print("Resolution: ");
-    Serial.println(ds.getResolution());
-
-    Serial.print("Power Mode: ");
-    if (ds.getPowerMode()) {
-      Serial.println("External");
-    } else {
-      Serial.println("Parasite");
-    }
-
-    Serial.print("Temperature: ");
-    Serial.print(ds.getTempC());
-    Serial.print(" C / ");
-    Serial.print(ds.getTempF());
-    Serial.println(" F");
-    Serial.println();
-  }
-
-  delay(10000);
+   }
 }
