@@ -33,3 +33,13 @@
 //#      - Initial release                                                      #
 //#                                                                             #
 //###############################################################################
+ 
+//IO definitions
+#define SAFETY_OUT  19 //A5
+
+//IO setup
+void safety_IoSetup() {
+  //Disable laser
+  pinMode(SAFETY_OUT, OUTPUT);
+  digitalWrite(SAFETY_OUT, LOW);
+}

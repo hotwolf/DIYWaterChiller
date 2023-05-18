@@ -34,5 +34,17 @@
 //#                                                                             #
 //###############################################################################
 
+//IO definitions 
+#define PUMP_WARM  10
+#define PUMP_COLD   9
+
 //Libraries
 #include <TimerOne.h>
+
+//IO setup
+void pump_IoSetup() {
+  //Setup timer 1
+  Timer1.initialize(40);  // 40 us = 25 kHz
+  Timer1.pwm(PUMP_WARM, 0);
+  Timer1.pwm(PUMP_COLD, 0);
+}

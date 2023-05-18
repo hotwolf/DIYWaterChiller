@@ -34,12 +34,18 @@
 //#                                                                             #
 //###############################################################################
 
+//IO definitions 
+#define KEY_A  14
+#define KEY_B  15
+#define KEY_C  16
+
 //Libraries
-#include <SPI.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_ILI9341.h>
-#include <TimerOne.h>
-#include <TimerTwo.h>
-#include <OneWire.h>
-#include <DS18B20.h>
-#include <EEPROM.h>
+#include <debounce.h>
+
+//IO setup
+void keys_IoSetup() {
+  //Setup IO
+  pinMode(KEY_A, INPUT_PULLUP);
+  pinMode(KEY_B, INPUT_PULLUP);
+  pinMode(KEY_C, INPUT_PULLUP);
+}

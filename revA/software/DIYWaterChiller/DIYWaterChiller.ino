@@ -37,32 +37,60 @@
 // Common definitions
 #define VERSION_STR "DIYWaterChiller FW00.00"
 
+//Inlined functions
+inline void safety_IoSetup()  __attribute__((always_inline));
+inline void pump_IoSetup()    __attribute__((always_inline));
+inline void sound_IoSetup()   __attribute__((always_inline));
+inline void disp_IoSetup()    __attribute__((always_inline));
+inline void flow_IoSetup()    __attribute__((always_inline));
+inline void temp_IoSetup()    __attribute__((always_inline));
+inline void keys_IoSetup()    __attribute__((always_inline));
+inline void serial_IoSetup()  __attribute__((always_inline));
+inline void eeprom_setup()    __attribute__((always_inline));
+inline void temp_setup()      __attribute__((always_inline));
+inline void flow_setup()      __attribute__((always_inline));
+
+// inline void eeprom_setup()  __attribute__((always_inline));
+// inline void ctrloop_setup() __attribute__((always_inline));
+
+// inline void flow_start() __attribute__((always_inline));
+// inline void ctrloop_start() __attribute__((always_inline));
+
+// inline bool ctrloop_is_new_cycle() __attribute__((always_inline));
+
+
+
 //Setup
 void setup() {
-  //Minimal setup of all components
-  safety_setup();
-  pump_setup();
-  disp_setup();
-  flow_setup();
-  temp_setup();
-  keys_setup();
-  serial_setup();
-  eeprom_setup();
-  ctrloop_setup();
+  //Configure IOs
+  safety_IoSetup();
+  pump_IoSetup();
+  sound_IoSetup();
+  disp_IoSetup();
+  flow_IoSetup();
+  temp_IoSetup();
+  keys_IoSetup();
+  serial_IoSetup();
  
+  //Start functions
+  eeprom_setup();
+  temp_setup();
+  flow_setup();
+
+
   //Detect temperature sensors
-  temp_detect();
+  //temp_detect();
   
   //Start application
-  disp_drawBackground();
-  flow_start();
-  ctrloop_start();
+  // //disp_drawBackground();
+  // flow_start();
+  // ctrloop_start();
 }
 
 //Loop
 void loop() {
    //execute once after each periodic ISR
-   if (ctrloop_is_new_cycle) {
+  //  if (ctrloop_is_new_cycle()) {
      
       //Check for leakage
 
@@ -78,5 +106,5 @@ void loop() {
       //Update display
 
 
-   }
+  //  }
 }

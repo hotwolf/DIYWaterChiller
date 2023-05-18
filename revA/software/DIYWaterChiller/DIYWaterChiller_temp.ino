@@ -37,86 +37,110 @@
 //DS18B20 definitions
 #define ONEWIRE_SEARCH  0
 #define ONEWIRE_PIN     4
+#define TEMP_COLD       0
+#define TEMP_WARM       1
+#define TEMP_INLET      2
+#define TEMP_OUTLET     3
+#define TEMP_SIMULATION 1
 
 //Libraries
 #include <OneWire.h>
 #include <DS18B20.h>
 
+//Sensor addresses
+typedef uint8_t        temp_addr_t[8];     //Single sensor address
+typedef temp_addr_t    temp_addrSet_t[4];  //All 4 sensor addresses
+
 //Sensor data
-typedef struct {
-        float    cold;     //Water temperature in the cold tank [°C]
-        float    warm;     //Water temperature in the warm tank [°C]
-        float    in;       //Inlet water temperature [°C]
-        float    out;      //Outlet water temperature [°C]
-} tempSensors
-tempSensors[2] tempSense_mem;
-tempSensors   *tempSense_current;  //Current status
-tempSensors   *tempSense_previous; //Previous status
+typedef float          temp_dataSet_t[4];  //4 temperatures at a given time       
+typedef temp_dataSet_t temp_dataHist_t[2]; //Previous and current set of temperatures
 
-DS18B20          ds(ONEWIRE_PIN);
 
-//Minimal setup
-inline void setup_DS18B20s() __attribute__((always_inline));
-void setup_DS18B20s() {
+temp_dataHist_t temp_data;
+temp_dataSet_t *temp_dataPrev;
+temp_dataSet_t *temp_dataCur;
 
+DS18B20 temp(ONEWIRE_PIN);
+
+//IO setup
+void temp_IoSetup() {
 }
 
-//Detect temperature sensors
-inline void detect_DS18B20s() __attribute__((always_inline));
-void detect_DS18B20s() {
+//Start temp sensors
+void temp_setup() {
+  //
+  temp_dataPrev = &temp_data[0];
+  temp_dataCur  = &temp_data[1];
 
-  //Check if sensors have been detected before
-  bool detection_required = false;
-
-  //Check for EEPROM record
-  if(EEPROM_record_exists) {
-    //Check if 4 temp sensors are connected
-    if (ds.getNumberOfDevices() == 4) {
-      //Check if sensors are known
-      while (!detection_required && ds.selectNext()) {
-        //Check family code
-        if (ds.getFamilyCode() == MODEL_DS18B20) {
-          if (!is_known_tempSense(ds.getAddress(address))) {
-             detection_required = true; //Unknown sensor address
-          }
-        } else {
-          detection_required = true; //One sensor model
-        }
-      }
-    } else  {
-      detection_required = true; //Wrong number of sensors connected
-    }
-  } else {
-    detection_required = true; //No EEPROM record
-  }
-
-  //Run sensor detection if required
-  if (detection_required) {
-    //Step 1: Unplug all temperature sensors
-    draw_DS18B20_detection_screen1()                   //Prompt for action
-    while (ds.getNumberOfDevices() != 0) {delay(500);} //Wait until all sensors are unplugged
-
-    //Step 2: Plug in ininlet sensors
-    draw_DS18B20_detection_screen2()                   //Prompt for action
-    while (ds.getNumberOfDevices() == 1) {delay(500);} //Wait until one sensor is plugged in
-
-    //Step 3: Plug in outlet sensors
-    draw_DS18B20_detection_screen3()                   //Prompt for action
-    while (ds.getNumberOfDevices() == 2) {delay(500);} //Wait until two sensors are plugged in
-
-    //Step 4: Plug in cold water sensors
-    draw_DS18B20_detection_screen4()                   //Prompt for action
-    while (ds.getNumberOfDevices() == 3) {delay(500);} //Wait until three sensor are plugged in
-
-    //Step 5: Plug in cold water sensors
-    draw_DS18B20_detection_screen4()                   //Prompt for action
-    while (ds.getNumberOfDevices() == 4) {delay(500);} //Wait until four sensor are plugged in
-
-
-
-
-
-  }
-
+  
+  *temp_dataCur[0] = 0.1; 
+  *temp_dataCur[1] = 1.1; 
+  *temp_dataCur[2] = 2.1; 
+  *temp_dataCur[3] = 3.1; 
+    
 }
+
+
+
+
+
+
+// //Detect temperature sensors
+// inline void temp_detect() __attribute__((always_inline));
+// void temp_detect_DS18B20s() {
+
+//   //Check if sensors have been detected before
+//   bool detection_required = false;
+
+//   //Check for EEPROM record
+//   if(EEPROM_record_exists) {
+//     //Check if 4 temp sensors are connected
+//     if (ds.getNumberOfDevices() == 4) {
+//       //Check if sensors are known
+//       while (!detection_required && ds.selectNext()) {
+//         //Check family code
+//         if (ds.getFamilyCode() == MODEL_DS18B20) {
+//           if (!is_known_tempSense(ds.getAddress(address))) {
+//              detection_required = true; //Unknown sensor address
+//           }
+//         } else {
+//           detection_required = true; //One sensor model
+//         }
+//       }
+//     } else  {
+//       detection_required = true; //Wrong number of sensors connected
+//     }
+//   } else {
+//     detection_required = true; //No EEPROM record
+//   }
+
+//   //Run sensor detection if required
+//   if (detection_required) {
+//     //Step 1: Unplug all temperature sensors
+//     disp_drawTempDetection1();                         //Prompt for action
+//     while (ds.getNumberOfDevices() != 0) {delay(500);} //Wait until all sensors are unplugged
+
+//     //Step 2: Plug in ininlet sensors
+//     disp_drawTempDetection2();                         //Prompt for action
+//     while (ds.getNumberOfDevices() == 1) {delay(500);} //Wait until one sensor is plugged in
+
+//     //Step 3: Plug in outlet sensors
+//     disp_drawTempDetection3();                         //Prompt for action
+//    while (ds.getNumberOfDevices() == 2) {delay(500);} //Wait until two sensors are plugged in
+
+//     //Step 4: Plug in cold water sensors
+//     disp_drawTempDetection4();                         //Prompt for action
+//     while (ds.getNumberOfDevices() == 3) {delay(500);} //Wait until three sensor are plugged in
+
+//     //Step 5: Plug in cold water sensors
+//     disp_drawTempDetection5();                         //Prompt for action
+//      while (ds.getNumberOfDevices() == 4) {delay(500);} //Wait until four sensor are plugged in
+
+
+
+
+
+//   }
+
+// }
 

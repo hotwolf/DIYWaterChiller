@@ -34,74 +34,61 @@
 //#                                                                             #
 //###############################################################################
 
-//Control loop definitions
-#define CONTROL_LOOP_PERIOD 
+// //Libraries
+// #include <TimerTwo.h>
 
-//Libraries
-#include <TimerTwo.h>
-
-const uint16_t Control_period = 1000;
-
-//Minimal setup
-inline void setup_Control() __attribute__((always_inline));
-void setup_Control() {
-}
-
-/Start control loop
-inline void start_Control() __attribute__((always_inline));
-void start_Control() {
-  //Initialize timer 2
-  Timer2.init(, ISR_Control);
-  //
-
-…}
-
-//ISRs
-//Control loop cycle
-void ISR_Control() {
+// //Inlined functions
+// inline void flow_capture() __attribute__((always_inline));
 
 
 
-   flowSense_next->in++;
-}
+// bool           ctrloop_new_cycle;
+// const uint16_t ctrloop_period = 1000; //1s
+
+// //Minimal setup
+// void ctrloop_setup() {
+//   //Control loop not started 
+//   ctrloop_new_cycle = false;
+// }
+
+// //Start control loop
+// void ctrloop_start() {
+//   //Initialize timer 2
+//   Timer2.init(ctrloop_period, ISR_ctrloop);
+//   //Start timer
+//   Timer2.start();
+// }
+
+// //ISRs
+// //Control loop cycle (executed once per second)
+// void ISR_ctrloop() {
+//    //Capture flow sensors immediately
+//    flow_capture();
+//    //Signal start of new control loop cycle
+//    ctrloop_new_cycle = true;
+// }
+
+// //Check for new control loop cycle
+// bool ctrloop_is_new_cycle() {
+//   bool result = ctrloop_new_cycle;
+//   ctrloop_new_cycle = false;
+//   return result;
+// }
 
 
+// // //Actuator data
+// // typedef struct
+// // {
+// //         uint16_t in_pump;       //Inlet pump strength [100%/1023]
+// //         uint16_t out_pump;      //Ou sensors_next->in_flow = 0;tlet pump strength [100%/1023]
+// //         bool     enable_laser;  //Relais control 
+// // } actuators_t
 
+// // actuators_t[3] actuator_mem ;
+// // actuators_t   *actuators_next;     //upcoming status
+// // actuators_t   *actuators_current;  //Current status
+// // actuators_t   *actuators_previous; //Previous status
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Actuator data
-typedef struct
-{
-        uint16_t in_pump;       //Inlet pump strength [100%/1023]
-        uint16_t out_pump;      //Ou sensors_next->in_flow = 0;tlet pump strength [100%/1023]
-        bool     enable_laser;  //Relais control 
-} actuators
-
-actuators[3] actuator_mem;
-actuators   *actuators_next;     //upcoming status
-actuators   *actuators_current;  //Current status
-actuators   *actuators_previous; //Previous status
-
-//Control cycle
-bool start_cycle; //Start new iteration
+// //Control cycle
+// bool start_cycle; //Start new iteration
 

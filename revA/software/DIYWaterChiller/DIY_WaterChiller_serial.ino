@@ -34,9 +34,8 @@
 //#                                                                             #
 //###############################################################################
 
-//Minimal setup
-inline void setup_Serial() __attribute__((always_inline));
-void setup_Serial()
+//IO setup
+void serial_IoSetup()
 {
  Serial.begin(9600);
 }

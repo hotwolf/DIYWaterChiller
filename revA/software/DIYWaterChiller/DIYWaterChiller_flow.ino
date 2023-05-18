@@ -43,76 +43,63 @@
 
 //Flow sensor data
 typedef struct {
-        uint8_t  in;       //Inlet flow rate [pulse/s]
-        uint8_t  out;      //Outlet flow rate [pulse/s]
-} flowSensors
+        uint8_t  inlet;       //Inlet flow rate [pulse/s]
+        uint8_t  outlet;      //Outlet flow rate [pulse/s]
+} flow_data_t;
 
-flowSensors[3] flowSense_mem;
-flowSensors   *flowSensors_next;     //upcoming status
-flowSensors   *flowSensors_current;  //Current status
-flowSensors   *flowSensors_previous; //Previous status
+flow_data_t  flow_data[3]  = {{0,0},{0,0},{0,0}};
+flow_data_t *flow_dataNext = &flow_data[2];     //Upcoming status
+flow_data_t *flow_dataCur  = &flow_data[1];     //Current status
+flow_data_t *flow_dataPrev = &flow_data[0];     //Previous status
 
-//Minimal setup
-inline void setup_FlowSensors() __attribute__((always_inline));
-void setup_FlowSensors() {
+//IO setup
+void flow_IoSetup() {
   //Configure inputs
   pinMode(FLOW_IN,  INPUT_PULLUP);  
   pinMode(FLOW_OUT, INPUT_PULLUP);
 }
 
 //Start flow sensors
-inline void start_FlowSensors() __attribute__((always_inline));
-void start_FlowSensors() {
-  //Initialize counters
-  flowSensors_current->in  = 0;
-  flowSensors_current->out = 0; 
-  flowSensors_next->in     = 0;
-  flowSensors_next->out    = 0; 
-
+void flow_setup() {
   //Enable ISRs
-  attachInterrupt(digitalPinToInterrupt(FLOW_IN),  ISR_FlowSensors_in,  CHANGE); //Count both edges
-  attachInterrupt(digitalPinToInterrupt(FLOW_OUT), ISR_FlowSensors_out, CHANGE); //Count both edges
+  attachInterrupt(digitalPinToInterrupt(FLOW_IN),  ISR_flow_inlet,  CHANGE); //Count both edges
+  attachInterrupt(digitalPinToInterrupt(FLOW_OUT), ISR_flow_outlet, CHANGE); //Count both edges
 }
 
 //ISRs
 //Flow meter inlet event
-void ISR_FlowSensors_in() {
-   flowSense_next->in++;
+void ISR_flow_inlet() {
+   flow_dataNext->inlet++;
 }
 
 //Flow meter outlet event
-void ISR_FlowSensors_out () {
-    flowSensors_next->out++;
+void ISR_flow_outlet () {
+    flow_dataNext->outlet++;
 }
 
 //Capture sensor data
-inline void capture_FlowSensors() __attribute__((always_inline));
-void capture_FlowSensors() {
+void flow_capture() {
   //Swap sensor data  
-  flowSense_previous  = sensors_current;
-  flowSense_current   = sensors_next;
-  flowSense_next->in  = 0;
-  flowSense_next->out = 0;
+  flow_dataPrev = flow_dataCur;
+  flow_dataCur  = flow_dataNext;
+  flow_dataNext->inlet  = 0;
+  flow_dataNext->outlet = 0;
 }
 
 //Check if readings have changed
-inline bool has_new_data_FlowSensors_in()  __attribute__((always_inline));
-inline bool has_new_data_FlowSensors_out() __attribute__((always_inline));
-bool has_new_data_FlowSensors_in() {
-  return (flowSense_previous->in != flowSense_current->in);
+bool flow_newInletData() {
+  return (flow_dataPrev->inlet != flow_dataCur->inlet);
 }
-bool has_new_data_FlowSensors_out() {
-  return (flowSense_previous->out != flowSense_current->out);
+bool flow_newOutletData() {
+  return (flow_dataPrev->outlet != flow_dataCur->outlet);
 }
 
 //Get current flow rate in l/min
-inline float get_flowrate_FlowSensors_in()  __attribute__((always_inline));
-inline float new_flowrate_FlowSensors_out() __attribute__((always_inline));
-float has_new_data_FlowSensors_in() {
-  return flowSense_current->in / (FLOW_CNT_TO_FLOWRATE);
+float flow_getInletFlowRate() {
+  return flow_dataCur->inlet / (FLOW_CNT_TO_FLOWRATE);
 }
-float has_new_data_FlowSensors_out() {
-  return flowSense_current->out / (FLOW_CNT_TO_FLOWRATE);
+float flow_getOutetFlowRate() {
+  return flow_dataCur->outlet / (FLOW_CNT_TO_FLOWRATE);
 }
 
 
