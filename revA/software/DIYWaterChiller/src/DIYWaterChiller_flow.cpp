@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Firmware - EEPROM                                         #
+//# DIYWaterChiller - Firmware - Flow Sensors                                   #
 //###############################################################################
 //#    Copyright 2023 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -22,7 +22,7 @@
 //#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Firmware for the DIYWaterChiller (EEPROM functions)                       #
+//#   Firmware for the DIYWaterChiller (flow sensor functions)                  #
 //#                                                                             #
 //#   !!! Set the Sketchbook location to               !!!                      #
 //#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #
@@ -34,54 +34,62 @@
 //#                                                                             #
 //###############################################################################
 
-//Libraries
-#include <EEPROM.h>
+#include "DIYWaterChiller_flow.h"
 
-//Address locations
-const uint16_t eeprom_recAddr = 0;
+//Variables
+flow_data_t  flow_data[3]  = {{0,0},{0,0},{0,0}};
+flow_data_t *flow_dataNext = &flow_data[2];     //Upcoming status
+flow_data_t *flow_dataCur  = &flow_data[1];     //Current status
+flow_data_t *flow_dataPrev = &flow_data[0];     //Previous status
 
-//EEprom record 
-typedef struct {
-  uint8_t check;   
-  uint8_t tempAddrs[4][8] = {{0,0,0,0,0,0,0,0},
-                             {0,0,0,0,0,0,0,0},        
-                             {0,0,0,0,0,0,0,0},  
-                             {0,0,0,0,0,0,0,0}};
-} eeprom_rec_t;
-eeprom_rec_t eeprom_rec;
-
-//Minimal setup
-void eeprom_setup() {
-  //Read EEPROM record
-  EEPROM.get(eeprom_recAddr, eeprom_rec);
+//IO setup
+void flow_ioSetup() {
+  //Configure inputs
+  pinMode(FLOW_IN,  INPUT_PULLUP);  
+  pinMode(FLOW_OUT, INPUT_PULLUP);
 }
 
-//Calculate check byte
-uint8_t eeprom_calcCheck() {
-  uint8_t  check = 0xFF;
-  uint8_t* ptr   = (uint8_t*)&eeprom_rec;
-  for (uint8_t i=1; i>sizeof(eeprom_rec_t); i++) {
-     ptr++;
-     check ^= *ptr;
-  }
-  return check;
+//Start flow sensors
+void flow_setup() {
+  //Enable ISRs
+  EICRA = (1 << ISC10)|(1 << ISC00); //Trigger interrupts on any edge
+  EIFR  = (1 << INTF1)|(1 << INTF0); //Clear interrupt flags
+  EIMSK = (1 << INT1) |(1 << INT0);  //Enable interrupts
 }
 
-//Check if an EEPROM record is correct
-inline bool eeprom_checkRec() __attribute__((always_inline));
-bool eeprom_checkRec() {
-   return (eeprom_rec.check == eeprom_calcCheck());
+//Capture sensor data
+void flow_capture() {
+  //Swap sensor data  
+  flow_dataPrev = flow_dataCur;
+  flow_dataCur  = flow_dataNext;
+  flow_dataNext->inlet  = 0;
+  flow_dataNext->outlet = 0;
 }
 
-//Store EEPROM record
-inline void eeprom_flushRec() __attribute__((always_inline));
-void eeprom_flushRec() {
-   eeprom_rec.check = eeprom_calcCheck();
-   EEPROM.put(eeprom_recAddr, eeprom_rec);
+//Check if readings have changed
+bool flow_newInletData() {
+  return (flow_dataPrev->inlet != flow_dataCur->inlet);
+}
+bool flow_newOutletData() {
+  return (flow_dataPrev->outlet != flow_dataCur->outlet);
 }
 
-//Get temp sensor addresses
-inline uint8_t* eeprom_getTempAddrs() __attribute__((always_inline));
-uint8_t* eeprom_getTempAddrs() {
-   return (uint8_t*)eeprom_rec.tempAddrs;
+//Get current flow rate in l/min
+float flow_getInletFlowRate() {
+  //return flow_dataCur->inlet / (FLOW_CNT_TO_FLOWRATE);
+  return flow_dataNext->inlet;
+}
+float flow_getOutletFlowRate() {
+  //return flow_dataCur->outlet / (FLOW_CNT_TO_FLOWRATE);
+  return flow_dataNext->outlet;
+}
+
+//Interrupt service routines
+//Flow meter inlet event
+ISR(INT0_vect){ 
+   flow_dataNext->inlet++;
+}
+//Flow meter outlet event
+ISR(INT1_vect){
+   flow_dataNext->outlet++;
 }

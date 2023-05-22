@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Firmware - Keys                                           #
+//# DIYWaterChiller - Firmware - Display                                         #
 //###############################################################################
 //#    Copyright 2023 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -14,15 +14,9 @@
 //#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            #
 //#    GNU General Public License for more details.                             #
 //#                                                                             #
-//#    You should have received a copy of the GNU General Public License        #
-//#    along with this project.  If not, see <http://www.gnu.org/licenses/>.    #
-//#                                                                             #
-//#    This project makes use of the NopSCADlib library                         #
-//#    (see https://github.com/nophead/NopSCADlib).                             #
-//#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Firmware for the DIYWaterChiller (key input functions)                    #
+//#   Firmware for the DIYWaterChiller (display functions)                      #
 //#                                                                             #
 //#   !!! Set the Sketchbook location to               !!!                      #
 //#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #
@@ -34,18 +28,53 @@
 //#                                                                             #
 //###############################################################################
 
-//IO definitions 
-#define KEY_A  14
-#define KEY_B  15
-#define KEY_C  16
+#ifndef DIYWATERCHILLER_DISP_H_INCLUDED
+#define DIYWATERCHILLER_DISP_H_INCLUDED
+
+//IO definitions
+#define DISP_DC   8
+#define DISP_CS  -1
+#define DISP_RST -1
+#define DISP_SDI 11
+#define DISP_SCK 13
+
+//Color definitions
+#define COL_FROM_RGB(r,g,b) (((r&0xF8)<<8)|((g&0xFC)<<3)|((0xD2&0xF8)>>3))
+#define COL_FROM_RGB(rgb)   (((rgb&0xF80000)>>8)|((rgb&0x00FC00)>>5)|((rgb&0x0000F8)>>3))
+#define COL_BACKGROUND  COL_FROM_RGB(0xF0F0D2)
+#define COL_COLDWATER   COL_FROM_RGB(0xD2F0EE)
+#define COL_WARMWATER   COL_FROM_RGB(0xF0DCD2)
+#define COL_WATERTANK   COL_FROM_RGB(0x231E3C)
+#define COL_PIPE        COL_FROM_RGB(0x231E3C)
+#define COL_PUMP        COL_FROM_RGB(0x4E4488)
+#define COL_LASERBASE1  COL_FROM_RGB(0x3C3D41)
+#define COL_LASERBASE2  COL_FROM_RGB(0x85858F)
+#define COL_LASERTOP1   COL_FROM_RGB(0x327DD0)
+#define COL_LASERTOP2   COL_FROM_RGB(0x93B9EC)
+#define COL_DARKTEXT    COL_FROM_RGB(0x231E3C)
+#define COL_LIGHTTEXT   COL_FROM_RGB(0xF0F0D2)
+#define COL_REDTEXT     COL_FROM_RGB(0xFF0000)
+#define COL_GREENTEXT   COL_FROM_RGB(0x00FF00)
 
 //Libraries
-#include <debounce.h>
+#include <SPI.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_ILI9341.h>
 
 //IO setup
-void keys_IoSetup() {
-  //Setup IO
-  pinMode(KEY_A, INPUT_PULLUP);
-  pinMode(KEY_B, INPUT_PULLUP);
-  pinMode(KEY_C, INPUT_PULLUP);
-}
+//inline void disp_ioSetup() __attribute__((always_inline));
+void disp_ioSetup();
+
+//Display setup
+//inline void disp_setup() __attribute__((always_inline)); 
+void disp_setup(); 
+
+//Clear screen
+//inline void disp_clear() __attribute__((always_inline));
+void disp_clear();
+
+//Draw screen background
+//inline void disp_drawBackground() __attribute__((always_inline));
+void disp_drawBackground();
+						
+#endif

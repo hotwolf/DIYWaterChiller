@@ -17,9 +17,6 @@
 //#    You should have received a copy of the GNU General Public License        #
 //#    along with this project.  If not, see <http://www.gnu.org/licenses/>.    #
 //#                                                                             #
-//#    This project makes use of the NopSCADlib library                         #
-//#    (see https://github.com/nophead/NopSCADlib).                             #
-//#                                                                             #
 //###############################################################################
 //# Description:                                                                #
 //#   Firmware for the DIYWaterChiller (serial communication functions)         #
@@ -34,8 +31,10 @@
 //#                                                                             #
 //###############################################################################
 
+#include "DIYWaterChiller_serial.h"
+
 //IO setup
-void serial_IoSetup()
+void serial_ioSetup()
 {
  Serial.begin(9600);
 }

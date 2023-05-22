@@ -80,6 +80,8 @@
 
 <item itemtype="AudioOut" CircId="AudioOut-1261" mainComp="false" Show_id="false" Show_Val="false" Pos="544,-20" rotation="0" hflip="1" vflip="1" label="AudioOut-1261" idLabPos="-20,-36" labelrot="0" valLabPos="-16,20" valLabRot="0" Buzzer="false" Impedance="8 Ω" />
 
+<item itemtype="Resistor" CircId="Resistor-1282" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="508,-28" rotation="0" hflip="1" vflip="1" label="Resistor-1282" idLabPos="-16,-24" labelrot="0" valLabPos="-10.3623,-5.27542" valLabRot="0" Resistance="100 Ω" />
+
 <item itemtype="Node" CircId="Node-432" mainComp="false" Pos="492,216" />
 
 <item itemtype="Node" CircId="Node-436" mainComp="false" Pos="492,156" />
@@ -126,13 +128,13 @@
 
 <item itemtype="Node" CircId="Node-1245" mainComp="false" Pos="188,188" />
 
-<item itemtype="Node" CircId="Node-1249" mainComp="false" Pos="244,176" />
-
-<item itemtype="Node" CircId="Node-1252" mainComp="false" Pos="236,188" />
-
 <item itemtype="Node" CircId="Node-1255" mainComp="false" Pos="252,200" />
 
 <item itemtype="Node" CircId="Node-1258" mainComp="false" Pos="280,212" />
+
+<item itemtype="Node" CircId="Node-1302" mainComp="false" Pos="244,188" />
+
+<item itemtype="Node" CircId="Node-1319" mainComp="false" Pos="236,176" />
 
 <item itemtype="Connector" uid="connector-1153" startpinid="Rail-399-outnod" endpinid="Node-436-0" pointList="532,156,492,156" />
 
@@ -262,8 +264,6 @@
 
 <item itemtype="Connector" uid="connector-1217" startpinid="WaveGen-817-outnod" endpinid="Uno-396-3" pointList="236,112,236,100,316,100" />
 
-<item itemtype="Connector" uid="connector-1218" startpinid="Bus-795-ePin0" endpinid="Bus-794-busPinI" pointList="-64,292,212,292,212,244" />
-
 <item itemtype="Connector" uid="connector-1219" startpinid="Socket-893-pin0" endpinid="Rail-895-outnod" pointList="444,20,444,28,440,28" />
 
 <item itemtype="Connector" uid="connector-1220" startpinid="Rail-485-outnod" endpinid="Socket-483-pin0" pointList="324,28,332,28,332,20" />
@@ -276,17 +276,9 @@
 
 <item itemtype="Connector" uid="connector-1224" startpinid="Ground-894-Gnd" endpinid="Socket-893-pin2" pointList="468,28,460,28,460,20" />
 
-<item itemtype="Connector" uid="connector-1225" startpinid="Uno-396-11" endpinid="Resistor-977-rPin" pointList="316,172,292,172,292,176" />
-
-<item itemtype="Connector" uid="connector-1226" startpinid="Resistor-977-lPin" endpinid="Node-1249-0" pointList="260,176,244,176" />
-
-<item itemtype="Connector" uid="connector-1227" startpinid="Resistor-1056-lPin" endpinid="Node-1252-0" pointList="260,188,236,188" />
-
 <item itemtype="Connector" uid="connector-1228" startpinid="Resistor-1137-lPin" endpinid="Node-1255-0" pointList="260,200,252,200" />
 
 <item itemtype="Connector" uid="connector-1230" startpinid="Uno-396-13" endpinid="Resistor-1137-rPin" pointList="316,188,300,188,300,200,292,200" />
-
-<item itemtype="Connector" uid="connector-1231" startpinid="Uno-396-12" endpinid="Resistor-1056-rPin" pointList="316,180,296,180,296,188,292,188" />
 
 <item itemtype="Connector" uid="connector-1232" startpinid="Uno-396-GND2" endpinid="Node-1258-0" pointList="316,196,304,196,304,212,280,212" />
 
@@ -302,14 +294,6 @@
 
 <item itemtype="Connector" uid="Connector-1247" startpinid="Node-1245-1" endpinid="Resistor-1237-lPin" pointList="188,188,188,176" />
 
-<item itemtype="Connector" uid="Connector-1248" startpinid="Resistor-1237-rPin" endpinid="Node-1249-1" pointList="220,176,244,176" />
-
-<item itemtype="Connector" uid="Connector-1250" startpinid="Node-1249-2" endpinid="Bus-794-ePin5" pointList="244,176,244,236" />
-
-<item itemtype="Connector" uid="Connector-1251" startpinid="Resistor-1235-rPin" endpinid="Node-1252-1" pointList="220,188,236,188" />
-
-<item itemtype="Connector" uid="Connector-1253" startpinid="Node-1252-2" endpinid="Bus-794-ePin4" pointList="236,188,236,236" />
-
 <item itemtype="Connector" uid="Connector-1254" startpinid="Resistor-1236-rPin" endpinid="Node-1255-1" pointList="220,200,252,200" />
 
 <item itemtype="Connector" uid="Connector-1256" startpinid="Node-1255-2" endpinid="Bus-794-ePin6" pointList="252,200,252,236" />
@@ -322,6 +306,26 @@
 
 <item itemtype="Connector" uid="Connector-1278" startpinid="Uno-396-A3" endpinid="AudioOut-1261-rPin" pointList="460,92,500,92,500,-20,528,-20" />
 
-<item itemtype="Connector" uid="Connector-1262" startpinid="Uno-396-A4" endpinid="AudioOut-1261-lPin" pointList="460,84,492,84,492,-28,528,-28" />
+<item itemtype="Connector" uid="Connector-1286" startpinid="Uno-396-A4" endpinid="Resistor-1282-lPin" pointList="460,84,492,84,492,-28" />
+
+<item itemtype="Connector" uid="Connector-1287" startpinid="Resistor-1282-rPin" endpinid="AudioOut-1261-lPin" pointList="524,-28,528,-28" />
+
+<item itemtype="Connector" uid="connector-1227" startpinid="Resistor-1056-lPin" endpinid="Node-1302-0" pointList="260,188,244,188" />
+
+<item itemtype="Connector" uid="Connector-1303" startpinid="Node-1302-2" endpinid="Resistor-1235-rPin" pointList="244,188,220,188" />
+
+<item itemtype="Connector" uid="Connector-1304" startpinid="Node-1302-1" endpinid="Bus-794-ePin5" pointList="244,188,244,236" />
+
+<item itemtype="Connector" uid="Connector-1305" startpinid="Resistor-1056-rPin" endpinid="Uno-396-11" pointList="292,188,296,188,296,172,316,172" />
+
+<item itemtype="Connector" uid="Connector-1306" startpinid="Resistor-977-rPin" endpinid="Uno-396-8" pointList="292,176,292,148,316,148" />
+
+<item itemtype="Connector" uid="connector-1218" startpinid="Bus-795-ePin0" endpinid="Bus-794-busPinI" pointList="-64,292,212,292,212,244" />
+
+<item itemtype="Connector" uid="connector-1226" startpinid="Resistor-977-lPin" endpinid="Node-1319-0" pointList="260,176,236,176" />
+
+<item itemtype="Connector" uid="Connector-1318" startpinid="Resistor-1237-rPin" endpinid="Node-1319-1" pointList="220,176,236,176" />
+
+<item itemtype="Connector" uid="Connector-1320" startpinid="Node-1319-2" endpinid="Bus-794-ePin4" pointList="236,176,236,236" />
 
 </circuit>

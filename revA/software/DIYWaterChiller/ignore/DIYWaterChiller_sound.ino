@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Firmware                                                  #
+//# DIYWaterChiller - Firmware - Sound                                          #
 //###############################################################################
 //#    Copyright 2023 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -17,109 +17,35 @@
 //#    You should have received a copy of the GNU General Public License        #
 //#    along with this project.  If not, see <http://www.gnu.org/licenses/>.    #
 //#                                                                             #
+//#    This project makes use of the NopSCADlib library                         #
+//#    (see https://github.com/nophead/NopSCADlib).                             #
+//#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Firmware for the DIYWaterChiller                                          #
+//#   Firmware for the DIYWaterChiller (sound functions)                        #
 //#                                                                             #
 //#   !!! Set the Sketchbook location to               !!!                      #
 //#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #
 //#                                                                             #
 //###############################################################################
 //# Version History:                                                            #
-//#   May 4, 2023                                                               #
+//#   May 17, 2023                                                              #
 //#      - Initial release                                                      #
 //#                                                                             #
 //###############################################################################
-
-#include "src/DIYWaterChiller_disp.h"
-#include "src/DIYWaterChiller_flow.h"
-#include "src/DIYWaterChiller_serial.h"
-
-//Common definitions
-#define PERINT_CYC_CNT 977 //Cycle count of the periodic interrupt to approximate one second
-
-//Global variables
-uint16_t perint_cnt; //Periodic interrupt down counter
-
-//Setup
-void setup() {
-  //Configure IOs
-  //safety_ioSetup();
-  //pump_ioSetup();
-  //sound_ioSetup();
-  disp_ioSetup();
-  flow_ioSetup();
-  //temp_ioSetup();
-  //keys_ioSetup();
-  serial_ioSetup();
  
-  //Start functions
-  Serial.println("Setup Display");
-  //yield();
-  //disp.fillTriangle(217,8, 217,13, 219,13, 0);
+//IO definitions
+#define SOUND_OUT_A  18 //A4
+#define SOUND_OUT_B  17 //A3
 
-  disp_setup();
-  //eeprom_setup();
-  //temp_setup();
-  flow_setup();
+//Libraries
+#include <toneAC2.h>
 
-
-  Serial.println("Setup done");
-
-  //Start Periodic interrupt
-  //Use output compare register OCR0A to trigger one interrupt ert TCNT0 counter cycle
-  //perint_cnt = PERINT_CYC_CNT; //Initialize cycle count
-  //OCR0A      = 0xAF;           //Random point in the TCNTO counter cycle
-  //TIMSK0    |= bit(OCIE0A);
+//IO setup
+void sound_ioSetup() {
+  //Disable laser
+  pinMode(SOUND_OUT_A, OUTPUT);
+  pinMode(SOUND_OUT_B, OUTPUT);
+  digitalWrite(SOUND_OUT_A, LOW);
+  digitalWrite(SOUND_OUT_B, LOW);
 }
-
-//Loop
-void loop() {
-   Serial.println("Loop");
-   Serial.print("Inlet: ");
-   Serial.println(flow_getInletFlowRate());
-   Serial.print("Outlet: ");
-   Serial.println(flow_getOutletFlowRate());
-   delay(1000);
-
-   //execute once after each periodic ISR
-  //  if (ctrloop_is_new_cycle()) {
-     
-      //Check for leakage
-
-      //Read temperatures
-      
-      //Check inlet temperature
-
-      //Calculate control loop cyccle
-
-      //Drive pumps
-
-
-      //Update display
-
-
-  //  }
-}
-
-//Periodic Interrupt (Timer/Counter0 compare match A)
-//This ISR is called every 1.024ms
-ISR(TIMER0_COMPA_vect) 
-{
-  switch(perint_cnt--) {
-    case 500:
-      //Capture flow sensor data within ISR
-      //Called every 1.000448s (1 7/15625 s)
-      flow_capture();
-    break;
-
-    case 0:
-      //Reset counter
-       perint_cnt = PERINT_CYC_CNT; //Initialize cycle count
-    break;
-  }
-}
-
-
-
-

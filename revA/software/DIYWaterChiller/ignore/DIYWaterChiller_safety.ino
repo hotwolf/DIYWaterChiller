@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Firmware - Pumps                                          #
+//# DIYWaterChiller - Firmware - Safety                                         #
 //###############################################################################
 //#    Copyright 2023 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -22,7 +22,7 @@
 //#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Firmware for the DIYWaterChiller (pump functions)                         #
+//#   Firmware for the DIYWaterChiller (safety functions)                       #
 //#                                                                             #
 //#   !!! Set the Sketchbook location to               !!!                      #
 //#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #
@@ -33,18 +33,13 @@
 //#      - Initial release                                                      #
 //#                                                                             #
 //###############################################################################
-
-//IO definitions 
-#define PUMP_WARM  10
-#define PUMP_COLD   9
-
-//Libraries
-#include <TimerOne.h>
+ 
+//IO definitions
+#define SAFETY_OUT  19 //A5
 
 //IO setup
-void pump_IoSetup() {
-  //Setup timer 1
-  Timer1.initialize(40);  // 40 us = 25 kHz
-  Timer1.pwm(PUMP_WARM, 0);
-  Timer1.pwm(PUMP_COLD, 0);
+void safety_ioSetup() {
+  //Disable laser
+  pinMode(SAFETY_OUT, OUTPUT);
+  digitalWrite(SAFETY_OUT, LOW);
 }
