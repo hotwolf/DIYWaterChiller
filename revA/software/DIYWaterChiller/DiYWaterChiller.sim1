@@ -1,7 +1,7 @@
-<circuit version="1.0.0-SR0" rev="1320" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
+<circuit version="" rev="1671" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
 
 <item itemtype="Subcircuit" CircId="Uno-396" mainComp="false" Show_id="true" Show_Val="false" Pos="308,60" rotation="0" hflip="1" vflip="1" label="Uno" idLabPos="17,-4" labelrot="0" valLabPos="-16,20" valLabRot="0" Logic_Symbol="false">
-<mainCompProps itemtype="MCU" CircId="396_mega328-109" mainComp="true" Show_id="false" Show_Val="false" Pos="20,20" rotation="0" hflip="1" vflip="1" label="396_mega328-109" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="16 MHz" Program="DIYWaterChiller.hex" Auto_Load="false" Rst_enabled="true" Ext_Osc="true" Wdt_enabled="false" />
+<mainCompProps itemtype="MCU" CircId="396_mega328-109" mainComp="true" Show_id="false" Show_Val="false" Pos="20,20" rotation="0" hflip="1" vflip="1" label="396_mega328-109" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="16 MHz" Auto_Load="false" saveEepr="true" Rst_enabled="true" Ext_Osc="true" Wdt_enabled="false" SerialMon="-1" />
 </item>
 
 <item itemtype="Resistor" CircId="Resistor-397" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="492,196" rotation="-270" hflip="1" vflip="1" label="Resistor-397" idLabPos="-16,-24" labelrot="0" valLabPos="-12,-16" valLabRot="0" Resistance="10 kΩ" />
@@ -24,15 +24,13 @@
 
 <item itemtype="Ground" CircId="Ground-462" mainComp="false" Show_id="false" Show_Val="false" Pos="572,112" rotation="0" hflip="1" vflip="1" label="Ground-462" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="Socket" CircId="Socket-483" mainComp="false" Show_id="true" Show_Val="false" Pos="356,12" rotation="-90" hflip="1" vflip="1" label="DS18B20" idLabPos="18,-35" labelrot="90" valLabPos="-16,20" valLabRot="0" Size="3 _Pins" />
+<item itemtype="Ground" CircId="Ground-484" mainComp="false" Show_id="false" Show_Val="false" Pos="388,44" rotation="0" hflip="1" vflip="1" label="Ground-484" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="Ground" CircId="Ground-484" mainComp="false" Show_id="false" Show_Val="false" Pos="356,44" rotation="0" hflip="1" vflip="1" label="Ground-484" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+<item itemtype="Rail" CircId="Rail-485" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="340,28" rotation="0" hflip="1" vflip="1" label="Rail-485" idLabPos="-16,-24" labelrot="0" valLabPos="-21,-5" valLabRot="0" Voltage="5 V" />
 
-<item itemtype="Rail" CircId="Rail-485" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="308,28" rotation="0" hflip="1" vflip="1" label="Rail-485" idLabPos="-16,-24" labelrot="0" valLabPos="-21,-5" valLabRot="0" Voltage="5 V" />
+<item itemtype="Subcircuit" CircId="L293-493" mainComp="false" Show_id="true" Show_Val="false" Pos="252,-100" rotation="0" hflip="-1" vflip="1" label="L293P" idLabPos="27,-14" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1e+9 Ω" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Tpd_ps="10000 ps" Tr_ps="3000 ps" Tf_ps="4000 ps" Logic_Symbol="true" />
 
-<item itemtype="Subcircuit" CircId="L293-493" mainComp="false" Show_id="true" Show_Val="false" Pos="252,-100" rotation="0" hflip="-1" vflip="1" label="L293P" idLabPos="27,-14" labelrot="0" valLabPos="-16,20" valLabRot="0" Logic_Symbol="true" />
-
-<item itemtype="Subcircuit" CircId="L293-494" mainComp="false" Show_id="true" Show_Val="false" Pos="300,-100" rotation="0" hflip="1" vflip="1" label="L293P" idLabPos="2,-14" labelrot="0" valLabPos="-16,20" valLabRot="0" Logic_Symbol="true" />
+<item itemtype="Subcircuit" CircId="L293-494" mainComp="false" Show_id="true" Show_Val="false" Pos="300,-100" rotation="0" hflip="1" vflip="1" label="L293P" idLabPos="2,-14" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1e+9 Ω" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Tpd_ps="10000 ps" Tr_ps="3000 ps" Tf_ps="4000 ps" Logic_Symbol="true" />
 
 <item itemtype="Rail" CircId="Rail-659" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="236,-124" rotation="0" hflip="1" vflip="1" label="Rail-659" idLabPos="-16,-24" labelrot="0" valLabPos="-21,-5" valLabRot="0" Voltage="5 V" />
 
@@ -56,21 +54,19 @@
 
 <item itemtype="Ground" CircId="Ground-809" mainComp="false" Show_id="false" Show_Val="false" Pos="280,236" rotation="0" hflip="1" vflip="1" label="Ground-809" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="WaveGen" CircId="WaveGen-816" mainComp="false" Show_id="true" Show_Val="false" Pos="220,92" rotation="0" hflip="1" vflip="1" label="Flow Meter (in)" idLabPos="-108,-6" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="false" Running="false" Wave_Type="Square" Freq="23 Hz" Steps="10 _Steps" Duty="50 _%" Always_On="false" Semi_Ampli="5 V" Mid_Volt="0 V" />
+<item itemtype="WaveGen" CircId="WaveGen-816" mainComp="false" Show_id="true" Show_Val="false" Pos="200,28" rotation="0" hflip="1" vflip="1" label="Inlet (10Hz)" idLabPos="-99.3205,-7.02112" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="false" Running="false" Wave_Type="Square" Freq="10 Hz" Steps="10 _Steps" Duty="50 _%" Always_On="false" Bipolar="false" Floating="false" Semi_Ampli="5 V" Mid_Volt="0 V" />
 
-<item itemtype="WaveGen" CircId="WaveGen-817" mainComp="false" Show_id="true" Show_Val="false" Pos="220,112" rotation="0" hflip="1" vflip="1" label="Flow Meter (out)" idLabPos="-108,-7" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="false" Running="false" Wave_Type="Square" Freq="20 Hz" Steps="10 _Steps" Duty="50 _%" Always_On="false" Semi_Ampli="5 V" Mid_Volt="0 V" />
+<item itemtype="WaveGen" CircId="WaveGen-817" mainComp="false" Show_id="true" Show_Val="false" Pos="200,84" rotation="0" hflip="1" vflip="1" label="Outlet (10Hz)" idLabPos="-98.2994,-5.97888" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="false" Running="false" Wave_Type="Square" Freq="10 Hz" Steps="10 _Steps" Duty="50 _%" Always_On="false" Bipolar="false" Floating="false" Semi_Ampli="5 V" Mid_Volt="0 V" />
 
-<item itemtype="Socket" CircId="Socket-893" mainComp="false" Show_id="true" Show_Val="false" Pos="468,12" rotation="-90" hflip="1" vflip="1" label="Relay" idLabPos="18,-26" labelrot="90" valLabPos="-16,20" valLabRot="0" Size="3 _Pins" />
+<item itemtype="Ground" CircId="Ground-894" mainComp="false" Show_id="false" Show_Val="false" Pos="476,44" rotation="0" hflip="1" vflip="1" label="Ground-894" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="Ground" CircId="Ground-894" mainComp="false" Show_id="false" Show_Val="false" Pos="468,44" rotation="0" hflip="1" vflip="1" label="Ground-894" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+<item itemtype="Rail" CircId="Rail-895" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="428,28" rotation="0" hflip="1" vflip="1" label="Rail-895" idLabPos="-16,-24" labelrot="0" valLabPos="-21,-5" valLabRot="0" Voltage="5 V" />
 
-<item itemtype="Rail" CircId="Rail-895" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="424,28" rotation="0" hflip="1" vflip="1" label="Rail-895" idLabPos="-16,-24" labelrot="0" valLabPos="-21,-5" valLabRot="0" Voltage="5 V" />
+<item itemtype="Resistor" CircId="Resistor-977" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="276,176" rotation="0" hflip="1" vflip="1" label="Resistor-977" idLabPos="-16,-24" labelrot="0" valLabPos="-8,-5" valLabRot="0" Resistance="2 kΩ" />
 
-<item itemtype="Resistor" CircId="Resistor-977" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="276,176" rotation="0" hflip="1" vflip="1" label="Resistor-977" idLabPos="-16,-24" labelrot="0" valLabPos="-8.57718,-5.73155" valLabRot="0" Resistance="2 kΩ" />
+<item itemtype="Resistor" CircId="Resistor-1056" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="276,188" rotation="0" hflip="1" vflip="1" label="Resistor-1056" idLabPos="-16,-24" labelrot="0" valLabPos="-8,-5" valLabRot="0" Resistance="2 kΩ" />
 
-<item itemtype="Resistor" CircId="Resistor-1056" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="276,188" rotation="0" hflip="1" vflip="1" label="Resistor-1056" idLabPos="-16,-24" labelrot="0" valLabPos="-8,-5.15437" valLabRot="0" Resistance="2 kΩ" />
-
-<item itemtype="Resistor" CircId="Resistor-1137" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="276,200" rotation="0" hflip="1" vflip="1" label="Resistor-1137" idLabPos="-16,-24" labelrot="0" valLabPos="-8.57718,-4.57718" valLabRot="0" Resistance="2 kΩ" />
+<item itemtype="Resistor" CircId="Resistor-1137" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="276,200" rotation="0" hflip="1" vflip="1" label="Resistor-1137" idLabPos="-16,-24" labelrot="0" valLabPos="-8,-4" valLabRot="0" Resistance="2 kΩ" />
 
 <item itemtype="Resistor" CircId="Resistor-1235" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="204,188" rotation="0" hflip="1" vflip="1" label="Resistor-1235" idLabPos="-16,-24" labelrot="0" valLabPos="-8,-5" valLabRot="0" Resistance="3 kΩ" />
 
@@ -80,7 +76,53 @@
 
 <item itemtype="AudioOut" CircId="AudioOut-1261" mainComp="false" Show_id="false" Show_Val="false" Pos="544,-20" rotation="0" hflip="1" vflip="1" label="AudioOut-1261" idLabPos="-20,-36" labelrot="0" valLabPos="-16,20" valLabRot="0" Buzzer="false" Impedance="8 Ω" />
 
-<item itemtype="Resistor" CircId="Resistor-1282" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="508,-28" rotation="0" hflip="1" vflip="1" label="Resistor-1282" idLabPos="-16,-24" labelrot="0" valLabPos="-10.3623,-5.27542" valLabRot="0" Resistance="100 Ω" />
+<item itemtype="Resistor" CircId="Resistor-1282" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="508,-28" rotation="0" hflip="1" vflip="1" label="Resistor-1282" idLabPos="-16,-24" labelrot="0" valLabPos="-10,-5" valLabRot="0" Resistance="100 Ω" />
+
+<item itemtype="Bus" CircId="Bus-1320" mainComp="false" Show_id="true" Show_Val="false" Pos="468,12" rotation="-90" hflip="1" vflip="1" label="Relais" idLabPos="16.0588,-35.7443" labelrot="90" valLabPos="-16,20" valLabRot="0" Num_Bits="3 _Bits" Start_Bit="0" />
+
+<item itemtype="Bus" CircId="Bus-1321" mainComp="false" Show_id="false" Show_Val="false" Pos="536,-60" rotation="-90" hflip="1" vflip="-1" label="Bus-1321" idLabPos="16,-35" labelrot="90" valLabPos="-16,20" valLabRot="0" Num_Bits="3 _Bits" Start_Bit="0" />
+
+<item itemtype="WaveGen" CircId="WaveGen-1322" mainComp="false" Show_id="true" Show_Val="false" Pos="200,44" rotation="0" hflip="1" vflip="1" label="Inlet (46Hz)" idLabPos="-99.831,-6.51056" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="false" Running="false" Wave_Type="Square" Freq="46 Hz" Steps="10 _Steps" Duty="50 _%" Always_On="false" Bipolar="false" Floating="false" Semi_Ampli="5 V" Mid_Volt="0 V" />
+
+<item itemtype="WaveGen" CircId="WaveGen-1324" mainComp="false" Show_id="true" Show_Val="false" Pos="200,116" rotation="0" hflip="1" vflip="1" label="Outlet (200Hz)" idLabPos="-99.3205,-7.51056" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="false" Running="false" Wave_Type="Square" Freq="200 Hz" Steps="10 _Steps" Duty="50 _%" Always_On="false" Bipolar="false" Floating="false" Semi_Ampli="5 V" Mid_Volt="0 V" />
+
+<item itemtype="WaveGen" CircId="WaveGen-1325" mainComp="false" Show_id="true" Show_Val="false" Pos="200,100" rotation="0" hflip="1" vflip="1" label="Outlet (46Hz)" idLabPos="-99.3205,-6.48944" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="false" Running="false" Wave_Type="Square" Freq="46 Hz" Steps="10 _Steps" Duty="50 _%" Always_On="false" Bipolar="false" Floating="false" Semi_Ampli="5 V" Mid_Volt="0 V" />
+
+<item itemtype="WaveGen" CircId="WaveGen-1326" mainComp="false" Show_id="true" Show_Val="false" Pos="200,60" rotation="0" hflip="1" vflip="1" label="Inlet (200Hz)" idLabPos="-98.8099,-5.48944" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="false" Running="false" Wave_Type="Square" Freq="200 Hz" Steps="10 _Steps" Duty="50 _%" Always_On="false" Bipolar="false" Floating="false" Semi_Ampli="5 V" Mid_Volt="0 V" />
+
+<item itemtype="Or Gate" CircId="Or Gate-1328" mainComp="false" Show_id="false" Show_Val="false" Pos="236,44" rotation="0" hflip="1" vflip="1" label="Or Gate-1328" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1e+9 Ω" Invert_Inputs="false" Num_Inputs="3 _Inputs" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Inverted="false" Open_Collector="false" initHigh="false" Tpd_ps="10000 ps" Tr_ps="3000 ps" Tf_ps="4000 ps" />
+
+<item itemtype="Or Gate" CircId="Or Gate-1329" mainComp="false" Show_id="false" Show_Val="false" Pos="236,100" rotation="0" hflip="1" vflip="1" label="Or Gate-1329" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1e+9 Ω" Invert_Inputs="false" Num_Inputs="3 _Inputs" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Inverted="false" Open_Collector="false" initHigh="false" Tpd_ps="10000 ps" Tr_ps="3000 ps" Tf_ps="4000 ps" />
+
+<item itemtype="Led" CircId="Led-1331" mainComp="false" Show_id="false" Show_Val="false" Pos="512,-116" rotation="-90" hflip="1" vflip="1" label="Led-1331" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Red" Grounded="false" Threshold="1.8 V" MaxCurrent="0.03 A" Resistance="0.6 Ω" />
+
+<item itemtype="Led" CircId="Led-1332" mainComp="false" Show_id="false" Show_Val="false" Pos="544,-116" rotation="90" hflip="1" vflip="1" label="Led-1332" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Green" Grounded="false" Threshold="3.5 V" MaxCurrent="0.03 A" Resistance="0.6 Ω" />
+
+<item itemtype="Resistor" CircId="Resistor-1333" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="544,-84" rotation="90" hflip="1" vflip="1" label="Resistor-1333" idLabPos="-16,-24" labelrot="0" valLabPos="-9.15639,-5.27183" valLabRot="0" Resistance="1 kΩ" />
+
+<item itemtype="Resistor" CircId="Resistor-1334" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="512,-84" rotation="90" hflip="1" vflip="1" label="Resistor-1334" idLabPos="-16,-24" labelrot="0" valLabPos="-8.62577,-4.82782" valLabRot="0" Resistance="1 kΩ" />
+
+<item itemtype="DS18B20" CircId="DS18B20-1336" mainComp="false" Show_id="true" Show_Val="false" Pos="536,-164" rotation="0" hflip="1" vflip="1" label="Cold Tank (28 17 9E 7E E4 00 00 31 )" idLabPos="30.1194,-7.5776" labelrot="0" valLabPos="-16,20" valLabRot="0" ROM="28 17 9E 7E E4 00 00 31 " Temp="22 °C" TempInc="0.5 °C" />
+
+<item itemtype="Bus" CircId="Bus-1337" mainComp="false" Show_id="false" Show_Val="false" Pos="380,12" rotation="-90" hflip="1" vflip="1" label="Bus-1337" idLabPos="16,-35" labelrot="90" valLabPos="-16,20" valLabRot="0" Num_Bits="3 _Bits" Start_Bit="0" />
+
+<item itemtype="DS18B20" CircId="DS18B20-1340" mainComp="false" Show_id="true" Show_Val="false" Pos="536,-204" rotation="0" hflip="1" vflip="1" label="Warm Tank (28 DA D6 C7 71 00 00 2C)" idLabPos="30.6299,-6.55648" labelrot="0" valLabPos="-16,20" valLabRot="0" ROM="28 DA D6 C7 71 00 00 2C " Temp="22 °C" TempInc="0.5 °C" />
+
+<item itemtype="DS18B20" CircId="DS18B20-1341" mainComp="false" Show_id="true" Show_Val="false" Pos="536,-244" rotation="0" hflip="1" vflip="1" label="Outlet (28 EC E8 82 D4 00 00 F7 )" idLabPos="30.1194,-6.04592" labelrot="0" valLabPos="-16,20" valLabRot="0" ROM="28 EC E8 82 D4 00 00 F7 " Temp="22 °C" TempInc="0.5 °C" />
+
+<item itemtype="DS18B20" CircId="DS18B20-1342" mainComp="false" Show_id="true" Show_Val="false" Pos="536,-284" rotation="0" hflip="1" vflip="1" label="Inlet (28 E7 7A 89 F4 00 00 3B )" idLabPos="30.6299,-6.04592" labelrot="0" valLabPos="-16,20" valLabRot="0" ROM="28 E7 7A 89 F4 00 00 3B " Temp="22 °C" TempInc="0.5 °C" />
+
+<item itemtype="RelaySPST" CircId="RelaySPST-1344" mainComp="false" Show_id="false" Show_Val="false" Pos="568,-116" rotation="90" hflip="1" vflip="1" label="RelaySPST-1344" idLabPos="-16,8" labelrot="0" valLabPos="-16,6" valLabRot="0" Norm_Close="false" DT="false" Poles="1 _Poles" IOn="0.02 A" IOff="0.01 A" Inductance="0.1 H" Rcoil="100 Ω" AutoStep="0 _Steps" />
+
+<item itemtype="Switch" CircId="Switch-1347" mainComp="false" Show_id="false" Show_Val="false" Pos="484,-156" rotation="0" hflip="1" vflip="1" label="Switch-1347" idLabPos="-12,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Norm_Close="false" DT="false" Poles="1 _Poles" />
+
+<item itemtype="Switch" CircId="Switch-1348" mainComp="false" Show_id="false" Show_Val="false" Pos="484,-196" rotation="0" hflip="1" vflip="1" label="Switch-1348" idLabPos="-12,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Norm_Close="false" DT="false" Poles="1 _Poles" />
+
+<item itemtype="Switch" CircId="Switch-1349" mainComp="false" Show_id="false" Show_Val="false" Pos="484,-236" rotation="0" hflip="1" vflip="1" label="Switch-1349" idLabPos="-12,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Norm_Close="false" DT="false" Poles="1 _Poles" />
+
+<item itemtype="Switch" CircId="Switch-1350" mainComp="false" Show_id="false" Show_Val="false" Pos="484,-276" rotation="0" hflip="1" vflip="1" label="Switch-1350" idLabPos="-12,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Norm_Close="false" DT="false" Poles="1 _Poles" />
+
+<item itemtype="Bus" CircId="Bus-1351" mainComp="false" Show_id="false" Show_Val="false" Pos="468,-124" rotation="-90" hflip="1" vflip="-1" label="Bus-1351" idLabPos="16,-35" labelrot="90" valLabPos="-16,20" valLabRot="0" Num_Bits="3 _Bits" Start_Bit="0" />
 
 <item itemtype="Node" CircId="Node-432" mainComp="false" Pos="492,216" />
 
@@ -135,6 +177,18 @@
 <item itemtype="Node" CircId="Node-1302" mainComp="false" Pos="244,188" />
 
 <item itemtype="Node" CircId="Node-1319" mainComp="false" Pos="236,176" />
+
+<item itemtype="Node" CircId="Node-1335" mainComp="false" Pos="528,-132" />
+
+<item itemtype="Node" CircId="Node-1345" mainComp="false" Pos="544,-132" />
+
+<item itemtype="Node" CircId="Node-1346" mainComp="false" Pos="544,-68" />
+
+<item itemtype="Node" CircId="Node-1352" mainComp="false" Pos="460,-156" />
+
+<item itemtype="Node" CircId="Node-1353" mainComp="false" Pos="460,-196" />
+
+<item itemtype="Node" CircId="Node-1356" mainComp="false" Pos="460,-236" />
 
 <item itemtype="Connector" uid="connector-1153" startpinid="Rail-399-outnod" endpinid="Node-436-0" pointList="532,156,492,156" />
 
@@ -260,22 +314,6 @@
 
 <item itemtype="Connector" uid="connector-1215" startpinid="Bus-795-ePin2" endpinid="Ili9341-797-PinCS" pointList="-96,284,-96,272" />
 
-<item itemtype="Connector" uid="connector-1216" startpinid="WaveGen-816-outnod" endpinid="Uno-396-2" pointList="236,92,316,92" />
-
-<item itemtype="Connector" uid="connector-1217" startpinid="WaveGen-817-outnod" endpinid="Uno-396-3" pointList="236,112,236,100,316,100" />
-
-<item itemtype="Connector" uid="connector-1219" startpinid="Socket-893-pin0" endpinid="Rail-895-outnod" pointList="444,20,444,28,440,28" />
-
-<item itemtype="Connector" uid="connector-1220" startpinid="Rail-485-outnod" endpinid="Socket-483-pin0" pointList="324,28,332,28,332,20" />
-
-<item itemtype="Connector" uid="connector-1221" startpinid="Ground-484-Gnd" endpinid="Socket-483-pin2" pointList="356,28,348,28,348,20" />
-
-<item itemtype="Connector" uid="connector-1222" startpinid="Socket-483-pin1" endpinid="Uno-396-4" pointList="340,20,340,52,300,52,300,108,316,108" />
-
-<item itemtype="Connector" uid="connector-1223" startpinid="Socket-893-pin1" endpinid="Uno-396-A5" pointList="452,20,452,52,460,52,460,76" />
-
-<item itemtype="Connector" uid="connector-1224" startpinid="Ground-894-Gnd" endpinid="Socket-893-pin2" pointList="468,28,460,28,460,20" />
-
 <item itemtype="Connector" uid="connector-1228" startpinid="Resistor-1137-lPin" endpinid="Node-1255-0" pointList="260,200,252,200" />
 
 <item itemtype="Connector" uid="connector-1230" startpinid="Uno-396-13" endpinid="Resistor-1137-rPin" pointList="316,188,300,188,300,200,292,200" />
@@ -327,5 +365,81 @@
 <item itemtype="Connector" uid="Connector-1318" startpinid="Resistor-1237-rPin" endpinid="Node-1319-1" pointList="220,176,236,176" />
 
 <item itemtype="Connector" uid="Connector-1320" startpinid="Node-1319-2" endpinid="Bus-794-ePin4" pointList="236,176,236,236" />
+
+<item itemtype="Connector" uid="Connector-1321" startpinid="Rail-895-outnod" endpinid="Bus-1320-ePin1" pointList="440,28,452,28,452,20" />
+
+<item itemtype="Connector" uid="Connector-1322" startpinid="Ground-894-Gnd" endpinid="Bus-1320-ePin3" pointList="476,28,468,28,468,20" />
+
+<item itemtype="Connector" uid="Connector-1323" startpinid="Bus-1320-ePin2" endpinid="Uno-396-A5" pointList="460,20,460,76" />
+
+<item itemtype="Connector" uid="Connector-1326" startpinid="Bus-1320-ePin0" endpinid="Bus-1321-busPinI" pointList="468,12,468,-60,520,-60" />
+
+<item itemtype="Connector" uid="Connector-1327" startpinid="Or Gate-1328-in1" endpinid="WaveGen-1322-outnod" pointList="220,44,216,44" />
+
+<item itemtype="Connector" uid="Connector-1328" startpinid="Or Gate-1328-in0" endpinid="WaveGen-816-outnod" pointList="220,36,220,28,216,28" />
+
+<item itemtype="Connector" uid="Connector-1329" startpinid="Or Gate-1328-in2" endpinid="WaveGen-1326-outnod" pointList="220,52,220,60,216,60" />
+
+<item itemtype="Connector" uid="Connector-1330" startpinid="Or Gate-1329-in1" endpinid="Or Gate-1329-in1" pointList="220,100,216,100" />
+
+<item itemtype="Connector" uid="Connector-1331" startpinid="Or Gate-1329-in0" endpinid="WaveGen-817-outnod" pointList="220,92,220,84,216,84" />
+
+<item itemtype="Connector" uid="Connector-1332" startpinid="Or Gate-1329-in2" endpinid="WaveGen-1324-outnod" pointList="220,108,220,116,216,116" />
+
+<item itemtype="Connector" uid="Connector-1333" startpinid="Or Gate-1329-out" endpinid="Uno-396-3" pointList="252,100,316,100" />
+
+<item itemtype="Connector" uid="Connector-1334" startpinid="Or Gate-1328-out" endpinid="Uno-396-2" pointList="252,44,252,92,316,92" />
+
+<item itemtype="Connector" uid="Connector-1336" startpinid="Resistor-1334-lPin" endpinid="Led-1331-lPin" pointList="512,-100,512,-100" />
+
+<item itemtype="Connector" uid="Connector-1337" startpinid="Led-1332-rPin" endpinid="Resistor-1333-lPin" pointList="544,-100,544,-100" />
+
+<item itemtype="Connector" uid="Connector-1339" startpinid="Bus-1321-ePin3" endpinid="Node-1346-0" pointList="536,-68,544,-68" />
+
+<item itemtype="Connector" uid="Connector-1340" startpinid="Bus-1321-ePin2" endpinid="Node-1335-0" pointList="528,-68,528,-132" />
+
+<item itemtype="Connector" uid="Connector-1341" startpinid="Led-1331-rPin" endpinid="Node-1335-1" pointList="512,-132,528,-132" />
+
+<item itemtype="Connector" uid="Connector-1342" startpinid="Node-1335-2" endpinid="Node-1345-0" pointList="528,-132,544,-132" />
+
+<item itemtype="Connector" uid="Connector-1344" startpinid="Uno-396-4" endpinid="Bus-1337-ePin2" pointList="316,108,304,108,304,52,372,52,372,20" />
+
+<item itemtype="Connector" uid="Connector-1345" startpinid="Rail-485-outnod" endpinid="Bus-1337-ePin1" pointList="356,28,364,28,364,20" />
+
+<item itemtype="Connector" uid="Connector-1346" startpinid="Ground-484-Gnd" endpinid="Bus-1337-ePin3" pointList="388,28,380,28,380,20" />
+
+<item itemtype="Connector" uid="Connector-1339" startpinid="Resistor-1334-rPin" endpinid="Bus-1321-ePin1" pointList="512,-68,520,-68" />
+
+<item itemtype="Connector" uid="Connector-1349" startpinid="RelaySPST-1344-inductor-lPin" endpinid="Node-1345-1" pointList="568,-132,544,-132" />
+
+<item itemtype="Connector" uid="Connector-1350" startpinid="Node-1345-2" endpinid="Led-1332-lPin" pointList="544,-132,544,-132" />
+
+<item itemtype="Connector" uid="Connector-1351" startpinid="RelaySPST-1344-inductor-rPin" endpinid="Node-1346-1" pointList="568,-100,568,-68,544,-68" />
+
+<item itemtype="Connector" uid="Connector-1352" startpinid="Node-1346-2" endpinid="Resistor-1333-rPin" pointList="544,-68,544,-68" />
+
+<item itemtype="Connector" uid="Connector-1354" startpinid="DS18B20-1342-inPin" endpinid="Switch-1350-switch0pinN" pointList="500,-276,500,-276" />
+
+<item itemtype="Connector" uid="Connector-1355" startpinid="DS18B20-1341-inPin" endpinid="Switch-1349-switch0pinN" pointList="500,-236,500,-236" />
+
+<item itemtype="Connector" uid="Connector-1356" startpinid="DS18B20-1340-inPin" endpinid="Switch-1348-switch0pinN" pointList="500,-196,500,-196" />
+
+<item itemtype="Connector" uid="Connector-1357" startpinid="DS18B20-1336-inPin" endpinid="Switch-1347-switch0pinN" pointList="500,-156,500,-156" />
+
+<item itemtype="Connector" uid="Connector-1360" startpinid="Bus-1337-ePin0" endpinid="Bus-1351-busPinI" pointList="380,12,380,-20,452,-20,452,-124" />
+
+<item itemtype="Connector" uid="Connector-1361" startpinid="Bus-1351-ePin2" endpinid="Node-1352-0" pointList="460,-132,460,-156" />
+
+<item itemtype="Connector" uid="Connector-1362" startpinid="Switch-1347-pinP0" endpinid="Node-1352-1" pointList="468,-156,460,-156" />
+
+<item itemtype="Connector" uid="Connector-1363" startpinid="Node-1352-2" endpinid="Node-1353-0" pointList="460,-156,460,-196" />
+
+<item itemtype="Connector" uid="Connector-1364" startpinid="Switch-1348-pinP0" endpinid="Node-1353-1" pointList="468,-196,460,-196" />
+
+<item itemtype="Connector" uid="Connector-1355" startpinid="Node-1353-2" endpinid="Node-1356-0" pointList="460,-196,460,-236" />
+
+<item itemtype="Connector" uid="Connector-1368" startpinid="Switch-1349-pinP0" endpinid="Node-1356-1" pointList="468,-236,460,-236" />
+
+<item itemtype="Connector" uid="Connector-1369" startpinid="Node-1356-2" endpinid="Switch-1350-pinP0" pointList="460,-236,460,-276,468,-276" />
 
 </circuit>

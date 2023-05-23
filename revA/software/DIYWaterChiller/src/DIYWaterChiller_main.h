@@ -31,18 +31,23 @@
 //#                                                                             #
 //###############################################################################
 
-#include "src/DIYWaterChiller_main.h"
+#ifndef DIYWATERCHILLER_MAIN_H_INCLUDED
+#define DIYWATERCHILLER_MAIN_H_INCLUDED
+
+//Includes
+#include <Arduino.h>
+#include "DIYWaterChiller_disp.h"
+#include "DIYWaterChiller_flow.h"
+#include "DIYWaterChiller_serial.h"
+
+//Common definitions
+#define PERINT_CYC_CNT 977 //Cycle count of the periodic interrupt to approximate one second
 
 //Setup
-void setup() {
-  main_setup();
-}
+void main_setup();
 
 //Loop
-void loop() {
-  main_loop();
-}
+void main_loop();
 
-
-
+#endif
 

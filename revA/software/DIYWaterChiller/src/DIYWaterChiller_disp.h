@@ -70,11 +70,11 @@ void disp_ioSetup();
 void disp_setup(); 
 
 //Clear screen
-//inline void disp_clear() __attribute__((always_inline));
-void disp_clear();
+inline void disp_clear() __attribute__((always_inline));
+//void disp_clear();
 
 //Draw screen background
-//inline void disp_drawBackground() __attribute__((always_inline));
-void disp_drawBackground();
+inline void disp_drawBackground() __attribute__((always_inline));
+//void disp_drawBackground();
 						
 #endif
