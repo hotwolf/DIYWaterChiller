@@ -36,5 +36,5 @@
 //IO setup
 void serial_ioSetup()
 {
- Serial.begin(9600);
+ Serial.begin(115200);
 }

@@ -59,11 +59,13 @@ void flow_setup() {
 
 //Capture sensor data
 void flow_capture() {
-  //Swap sensor data  
+  //Swap sensor data
+  flow_data_t *tmp = flow_dataPrev;
+  tmp->inlet  = 0;
+  tmp->outlet = 0;
   flow_dataPrev = flow_dataCur;
   flow_dataCur  = flow_dataNext;
-  flow_dataNext->inlet  = 0;
-  flow_dataNext->outlet = 0;
+  flow_dataNext = tmp;
 }
 
 //Check if readings have changed
@@ -76,20 +78,19 @@ bool flow_newOutletData() {
 
 //Get current flow rate in l/min
 float flow_getInletFlowRate() {
-  //return flow_dataCur->inlet / (FLOW_CNT_TO_FLOWRATE);
-  return flow_dataNext->inlet;
+  return (float)flow_dataCur->inlet / (FLOW_CNT_TO_FLOWRATE);
 }
 float flow_getOutletFlowRate() {
-  //return flow_dataCur->outlet / (FLOW_CNT_TO_FLOWRATE);
-  return flow_dataNext->outlet;
+  return (float)flow_dataCur->outlet / (FLOW_CNT_TO_FLOWRATE);
 }
 
 //Interrupt service routines
 //Flow meter inlet event
 ISR(INT0_vect){ 
    flow_dataNext->inlet++;
+
 }
 //Flow meter outlet event
 ISR(INT1_vect){
-   flow_dataNext->outlet++;
+  (flow_dataNext->outlet)++;
 }
