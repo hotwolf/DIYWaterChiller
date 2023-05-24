@@ -54,6 +54,7 @@ void main_setup() {
   //disp.fillTriangle(217,8, 217,13, 219,13, 0);
 
   disp_setup();
+  disp_drawData(false);
   //eeprom_setup();
   //temp_setup();
   flow_setup();
@@ -71,11 +72,10 @@ void main_setup() {
 
 //Loop
 void main_loop() {
-   Serial.print("Inlet: ");
-   Serial.println(flow_getInletFlowRate(),DEC);
-   Serial.print("Outlet: ");
-   Serial.println(flow_getOutletFlowRate(),DEC);
-   delay(1000);
+   //Serial.print("Inlet: ");
+   //Serial.println(flow_getInletFlowRate(),DEC);
+   //Serial.print("Outlet: ");
+   //Serial.println(flow_getOutletFlowRate(),DEC);
 
    //execute once after each periodic ISR
   //  if (ctrloop_is_new_cycle()) {
@@ -92,8 +92,10 @@ void main_loop() {
 
 
       //Update display
+      disp_drawData(true);
 
-
+   
+      delay(1000);
   //  }
 }
 

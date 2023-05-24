@@ -42,7 +42,7 @@
 #define FLOW_OUT  3
 
 //Sensor definitions
-#define FLOW_CNT_TO_FLOWRATE 2*23/1.000448 //2*23 pulses/sec ~> 1/min (both edges)
+#define FLOW_CNT_TO_FLOWRATE 1.000448/(2*23) //2*23 pulses/sec ~> 1/min (both edges)
 
 //Flow sensor data
 typedef struct {

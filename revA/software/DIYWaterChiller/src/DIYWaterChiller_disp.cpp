@@ -91,14 +91,200 @@ void disp_drawBackground() {
 
   //Pipes
   disp.fillTriangle(40,76, 34,90, 46,90,       COL_PIPE);
-  disp.fillRect(38,91,     5, 159,             COL_PIPE);
+  disp.fillRect(38,91,     5,   6,             COL_PIPE);
+  disp.fillRect(38,137,    5, 113,             COL_PIPE);
   disp.fillRect(158,185,   5,  65,             COL_PIPE);
   disp.fillRect(43,185,  115,   5,             COL_PIPE);
   disp.fillTriangle(200,249, 194,235, 206,235, COL_PIPE);
-  disp.fillRect(198,76,    5, 159,             COL_PIPE);
+  disp.fillRect(198,76,     5, 21,             COL_PIPE);
+  disp.fillRect(198,137,    5, 98,             COL_PIPE);
 
+  //Metering points
+  disp.drawRoundRect(  2,97, 87, 40, 4, COL_PIPE);
+  disp.drawRoundRect(151,97, 87, 40, 4, COL_PIPE);
+  
   //Pumps
-  disp.fillRoundRect( 10,210, 60, 20, 10, COL_PUMP);
-  disp.fillRoundRect(130,210, 60, 20, 10, COL_PUMP);
+  disp.fillRoundRect( 15,210, 50, 20, 10, COL_PUMP);
+  disp.fillRoundRect(135,210, 50, 20, 10, COL_PUMP);
 }
 
+//Draw data
+void disp_drawData(bool update) {
+
+  //Inlet flow rate
+  disp_drawInFlow(update);
+    
+  //Outlet flow rate
+  disp_drawOutFlow(update);
+  
+  //Cold tank temperature
+  disp_drawColdTemp(update);
+    
+  //Warm tank temperature
+  disp_drawWarmTemp(update);
+
+  //Inlet temperature
+  disp_drawInTemp(update);
+    
+  //Outlet temperature
+  disp_drawOutTemp(update);
+
+  //Laser heat dissapation
+  disp_drawHeat(update);
+
+  //Cold water pump power
+  disp_drawColdPump(update);
+  
+  //Warm Water pump power
+  disp_drawWarmPump(update);
+}
+
+//Draw inlet flow rate
+void disp_drawInFlow(bool update) {
+
+   if (!update || flow_newInletData()) {
+     disp_drawFloat(3,118,flow_getInletFlowRate(),COL_DARKTEXT,COL_BACKGROUND,2,2);
+   }
+   if (!update) {
+     disp_drawLpm(64,COL_DARKTEXT);
+   }
+}
+    
+//Draw outlet flow rate
+void disp_drawOutFlow(bool update) {
+
+   if (!update || flow_newOutletData()) {
+     disp_drawFloat(152,118,flow_getOutletFlowRate(),COL_DARKTEXT,COL_BACKGROUND,2,2);
+   }//
+   if (!update) {
+    disp_drawLpm(213,COL_DARKTEXT);
+  }  
+}
+  
+//Draw cold tank temperature
+void disp_drawColdTemp(bool update) {
+
+  if (!update) {
+    const float temp = 4.38;
+    disp_drawFloat(18,274,temp,COL_COLDTEXT,COL_COLDWATER,2,2);
+    disp_drawDegC(79,274,COL_COLDTEXT,COL_COLDWATER);
+  }
+}
+    
+//Draw warm tank temperature
+void disp_drawWarmTemp(bool update) {
+
+  if (!update) {
+    const float temp = 24.78;
+    disp_drawFloat(138,274,temp,COL_WARMTEXT,COL_WARMWATER,2,2);
+    disp_drawDegC(199,274,COL_WARMTEXT,COL_WARMWATER);
+  }
+}
+
+//Draw inlet temperature
+void disp_drawInTemp(bool update) {
+
+  if (!update) {
+    const float temp = 24.27;
+    disp_drawFloat(3,100,temp,COL_GREENTEXT,COL_BACKGROUND,2,2);
+    disp_drawDegC(64,100,COL_GREENTEXT,COL_BACKGROUND);
+  }
+}
+    
+//Draw outlet temperature
+void disp_drawOutTemp(bool update) {
+
+  if (!update) {
+    const float temp = 31.93;
+    disp_drawFloat(152,100,temp,COL_GREENTEXT,COL_BACKGROUND,2,2);
+    disp_drawDegC(213,100,COL_GREENTEXT,COL_BACKGROUND);
+  }
+}
+
+//Draw laser heat dissapation
+void disp_drawHeat(bool update) {
+
+  if (!update) {
+    const float temp = 123.45;
+    disp_drawFloat(47,35,temp,COL_LIGHTTEXT,COL_LASERBASE1,4,4);
+    disp_drawWatt();
+  }
+}
+
+//Draw cold water pump power
+void disp_drawColdPump(bool update) {
+
+  if (!update) {
+    const float temp = 100;
+    disp_drawFloat(20,213,temp,COL_LIGHTTEXT,COL_PUMP,1,2);
+    disp_drawPercent(51,COL_LIGHTTEXT);
+  }
+}
+  
+//Draw warm water pump power
+void disp_drawWarmPump(bool update) {
+
+  if (!update) {
+    const float temp = 50;
+    disp_drawFloat(140,213,temp,COL_LIGHTTEXT,COL_PUMP,1,2);
+    disp_drawPercent(171,COL_LIGHTTEXT);
+  }
+}
+
+//Draw floating point number
+void disp_drawFloat(int16_t x, int16_t y, float num, uint16_t textCol, uint16_t bgCol, uint8_t sizeX, uint8_t sizeY) {
+  char buf[6]; //String buffer
+  dtostrf(num,5,1,buf);
+
+  disp.setCursor(x,y);
+  disp.setTextColor(textCol,bgCol);
+  disp.setTextSize(sizeX,sizeY);
+  disp.print(buf);
+}
+
+//Draw L/min unit
+void disp_drawLpm(int16_t x, uint16_t textCol) {
+  const int16_t y = 118;
+  
+  disp.setTextColor(textCol,COL_BACKGROUND);
+  disp.setTextSize(1); 
+
+  disp.setCursor(x+4,y-1);
+  disp.print(F("L"));
+  
+  disp.setCursor(x+5,y+8);
+  disp.print(F("min"));
+
+  disp.drawLine(x,y+10,x+18,y+3,textCol);
+}
+
+//Draw Celsius unit
+void disp_drawDegC(int16_t x, int16_t y, uint16_t textCol, uint16_t bgCol) {
+  disp.setCursor(x,y);
+  disp.setTextColor(textCol,bgCol);
+  disp.setTextSize(2);
+  disp.print(F("\xF7\C"));
+}
+
+//Draw Watts unit
+void disp_drawWatt() {
+  const int16_t x = 170;
+  const int16_t y = 35;
+  disp.setCursor(x,y);
+  disp.setTextColor(COL_LIGHTTEXT,COL_LASERBASE1);
+  disp.setTextSize(4);
+  disp.print(F("W"));
+  
+}
+
+//Draw % unit
+void disp_drawPercent(int16_t x, uint16_t textCol) {
+  const int16_t y = 213;
+  disp.setCursor(x,y);
+  disp.setTextColor(textCol,COL_PUMP);
+  disp.setTextSize(1,2);
+  disp.print(F("%"));
+  
+
+  
+}
