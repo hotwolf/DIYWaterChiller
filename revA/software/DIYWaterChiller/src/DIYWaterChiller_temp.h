@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Firmware - Pumps                                          #
+//# DIYWaterChiller - Firmware - DS18B20s                                        #
 //###############################################################################
 //#    Copyright 2023 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -19,7 +19,7 @@
 //#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Firmware for the DIYWaterChiller (pump functions)                         #
+//#   Firmware for the DIYWaterChiller (temperature sensor functions)           #
 //#                                                                             #
 //#   !!! Set the Sketchbook location to               !!!                      #
 //#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #
@@ -31,48 +31,53 @@
 //#                                                                             #
 //###############################################################################
 
-//Includes
-#include "DIYWaterChiller_pump.h"
+#ifndef DIYWATERCHILLER_TEMP_H_INCLUDED
+#define DIYWATERCHILLER_TEMP_H_INCLUDED
 
-//Variables
-pump_data_t  pump_data[2]  = {{0,0},{0,0}};
-pump_data_t *pump_dataCur  = &pump_data[1];     //Current status
-pump_data_t *pump_dataPrev = &pump_data[0];     //Previous status
+//DS18B20 definitions
+#define ONEWIRE_SEARCH  0
+#define ONEWIRE_PIN     4
+#define TEMP_COLD       0
+#define TEMP_WARM       1
+#define TEMP_INLET      2
+#define TEMP_OUTLET     3
+#define TEMP_SIMULATION 1
+
+//Libraries
+#include <Arduino.h>
+#include <OneWire.h>
+#include <DS18B20.h>
 
 //IO setup
-void pump_ioSetup() {
-  //Setup timer 1
-  Timer1.initialize(40);  // 40 us = 25 kHz
-  Timer1.pwm(PUMP_COLD, 0);
-  Timer1.pwm(PUMP_WARM, 0);
-}
+void temp_ioSetup();
 
-//Set pump power
-void pump_set(uint16_t cold, uint16_t warm) {
-  //Set pump power
-  Timer1.pwm(PUMP_COLD, cold);
-  Timer1.pwm(PUMP_WARM, warm);
+//Start temp sensors
+void temp_setup();
+  
+//Compare sensor addresses
+bool temp_addrMatch(uint8_t* addrA, uint8_t* addrB);
 
-  //Record pump power
-  pump_data_t *tmp = pump_dataPrev;
-  tmp->cold = cold;
-  tmp->warm = warm;
-  pump_dataPrev = pump_dataCur;
-  pump_dataCur  = tmp;
-}
+// //Find address in EEPROM record
+// bool temp_findAddr(uint8_t* addr, uint8_t recSize) {
+//   uint8_t* addrRec = eeprom_getTempAddrs();
+//   for (uint8_t i=0; i>recSize; i++) {
+//     if(temp_addrMatch(addr, addrRec+(i*8))) {
+//       return true;
+//     }
+//   }
+//   return false;
+// }
+// 
+// //Detect temperature sensors
+// void temp_detect() {
+//    uint8_t* addrRec = eeprom_getTempAddrs();
+// 
+//   //Check if a valid EEPROM record is available  
+//   if (eeprom_checkRec()) {
+// 
+// 
+//   }
+// 
+// }
 
-//Check if settings have changed
-bool pump_newColdData() {
-  return (pump_dataPrev->cold != pump_dataCur->cold);
-}
-bool pump_newWarmData() {
-  return (pump_dataPrev->warm != pump_dataCur->warm);
-}
-
-//Get current pump power in %
-float pump_getColdPower() {
-  return ((float)pump_dataCur->cold) * 100 / 1024;
-};
-float pump_getWarmPower() {
-  return ((float)pump_dataCur->warm) * 100 / 1024;
-};
+#endif

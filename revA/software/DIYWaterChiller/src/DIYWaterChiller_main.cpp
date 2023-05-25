@@ -35,6 +35,8 @@
 
 //Global variables
 uint16_t perint_cnt; //Periodic interrupt down counter
+uint16_t pColdCnt = 0;
+uint16_t pWarmCnt = 512;
 
 //Setup
 void main_setup() {
@@ -89,6 +91,13 @@ void main_loop() {
       //Calculate control loop cyccle
 
       //Drive pumps
+      pump_set(pColdCnt,pWarmCnt);
+      pColdCnt = (pColdCnt+10)%1024;
+      pWarmCnt = (pWarmCnt+10)%1024;
+      //Serial.print("Cold: ");
+      //Serial.println(pump_getColdPower(),DEC);
+      //Serial.print("Warm: ");
+      //Serial.println(pump_getWarmPower(),DEC);
 
 
       //Update display

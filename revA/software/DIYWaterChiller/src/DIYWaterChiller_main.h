@@ -38,6 +38,7 @@
 #include <Arduino.h>
 #include "DIYWaterChiller_disp.h"
 #include "DIYWaterChiller_flow.h"
+#include "DIYWaterChiller_temp.h"
 #include "DIYWaterChiller_pump.h"
 #include "DIYWaterChiller_serial.h"
 #include "DIYWaterChiller_safety.h"
