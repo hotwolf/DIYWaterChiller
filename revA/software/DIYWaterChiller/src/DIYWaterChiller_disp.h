@@ -34,6 +34,7 @@
 //Includes
 #include <Arduino.h>
 #include "DIYWaterChiller_flow.h"
+#include "DIYWaterChiller_pump.h"
 
 //IO definitions
 #define DISP_DC   8

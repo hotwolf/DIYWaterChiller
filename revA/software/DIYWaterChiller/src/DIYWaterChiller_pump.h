@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Firmware                                                  #
+//# DIYWaterChiller - Firmware - Pumps                                          #
 //###############################################################################
 //#    Copyright 2023 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -19,37 +19,47 @@
 //#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Firmware for the DIYWaterChiller                                          #
+//#   Firmware for the DIYWaterChiller (pump functions)                         #
 //#                                                                             #
 //#   !!! Set the Sketchbook location to               !!!                      #
 //#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #
 //#                                                                             #
 //###############################################################################
 //# Version History:                                                            #
-//#   May 4, 2023                                                               #
+//#   May 12, 2023                                                              #
 //#      - Initial release                                                      #
 //#                                                                             #
 //###############################################################################
 
-#ifndef DIYWATERCHILLER_MAIN_H_INCLUDED
-#define DIYWATERCHILLER_MAIN_H_INCLUDED
+#ifndef DIYWATERCHILLER_PUMP_H_INCLUDED
+#define DIYWATERCHILLER_PUMP_H_INCLUDED
 
-//Includes
+//IO definitions 
+#define PUMP_WARM  10
+#define PUMP_COLD   9
+
+//Libraries
 #include <Arduino.h>
-#include "DIYWaterChiller_disp.h"
-#include "DIYWaterChiller_flow.h"
-#include "DIYWaterChiller_pump.h"
-#include "DIYWaterChiller_serial.h"
-#include "DIYWaterChiller_safety.h"
+#include <TimerOne.h>
 
-//Common definitions
-#define PERINT_CYC_CNT 977 //Cycle count of the periodic interrupt to approximate one second
+//Pump drive data
+typedef struct {
+        uint16_t  cold; //Cold water pump power [0..1023]
+        uint16_t  warm; //Warm water pump power [0..1023]
+} pump_data_t;
 
-//Setup
-void main_setup();
+//IO setup
+void pump_ioSetup();
 
-//Loop
-void main_loop();
+//Set pump power
+void pump_set(uint16_t cold, uint16_t warm);
+
+//Check if settings have changed
+bool pump_newColdData();
+bool pump_newWarmData();
+
+//Get current pump power in %
+float pump_getColdPower();
+float pump_getWarmPower();
 
 #endif
-

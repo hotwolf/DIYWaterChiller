@@ -214,20 +214,22 @@ void disp_drawHeat(bool update) {
 //Draw cold water pump power
 void disp_drawColdPump(bool update) {
 
-  if (!update) {
-    const float temp = 100;
-    disp_drawFloat(20,213,temp,COL_LIGHTTEXT,COL_PUMP,1,2);
-    disp_drawPercent(51,COL_LIGHTTEXT);
+  if (!update || pump_newColdData()) {
+    disp_drawFloat(20,213,pump_getColdPower(),COL_LIGHTTEXT,COL_PUMP,1,2);
   }
+  if (!update) {
+    disp_drawPercent(51,COL_LIGHTTEXT);
+  }  
 }
   
 //Draw warm water pump power
 void disp_drawWarmPump(bool update) {
 
-  if (!update) {
-    const float temp = 50;
-    disp_drawFloat(140,213,temp,COL_LIGHTTEXT,COL_PUMP,1,2);
-    disp_drawPercent(171,COL_LIGHTTEXT);
+   if (!update || pump_newColdData()) {
+     disp_drawFloat(140,213,pump_getWarmPower(),COL_LIGHTTEXT,COL_PUMP,1,2);
+   }
+   if (!update) {
+     disp_drawPercent(171,COL_LIGHTTEXT);
   }
 }
 

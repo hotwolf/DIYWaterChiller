@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Firmware - Pumps                                          #
+//# DIYWaterChiller - Firmware - Safety                                         #
 //###############################################################################
 //#    Copyright 2023 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -17,12 +17,9 @@
 //#    You should have received a copy of the GNU General Public License        #
 //#    along with this project.  If not, see <http://www.gnu.org/licenses/>.    #
 //#                                                                             #
-//#    This project makes use of the NopSCADlib library                         #
-//#    (see https://github.com/nophead/NopSCADlib).                             #
-//#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Firmware for the DIYWaterChiller (pump functions)                         #
+//#   Firmware for the DIYWaterChiller (safety functions)                       #
 //#                                                                             #
 //#   !!! Set the Sketchbook location to               !!!                      #
 //#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #
@@ -33,18 +30,17 @@
 //#      - Initial release                                                      #
 //#                                                                             #
 //###############################################################################
+ 
+#ifndef DIYWATERCHILLER_SAFETY_H_INCLUDED
+#define DIYWATERCHILLER_SAFETY_H_INCLUDED
 
-//IO definitions 
-#define PUMP_WARM  10
-#define PUMP_COLD   9
+//IO definitions
+#define SAFETY_OUT  19 //A5
 
-//Libraries
-#include <TimerOne.h>
+//Includes
+#include <Arduino.h>
 
 //IO setup
-void pump_ioSetup() {
-  //Setup timer 1
-  Timer1.initialize(40);  // 40 us = 25 kHz
-  Timer1.pwm(PUMP_WARM, 0);
-  Timer1.pwm(PUMP_COLD, 0);
-}
+void safety_ioSetup();
+
+#endif

@@ -34,12 +34,13 @@
 //#                                                                             #
 //###############################################################################
  
-//IO definitions
-#define SAFETY_OUT  19 //A5
+//Includes
+#include "DIYWaterChiller_safety.h"
 
 //IO setup
 void safety_ioSetup() {
   //Disable laser
   pinMode(SAFETY_OUT, OUTPUT);
   digitalWrite(SAFETY_OUT, LOW);
+  //digitalWrite(SAFETY_OUT, HIGH);
 }

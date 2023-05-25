@@ -39,8 +39,8 @@ uint16_t perint_cnt; //Periodic interrupt down counter
 //Setup
 void main_setup() {
   //Configure IOs
-  //safety_ioSetup();
-  //pump_ioSetup();
+  safety_ioSetup();
+  pump_ioSetup();
   //sound_ioSetup();
   disp_ioSetup();
   flow_ioSetup();
