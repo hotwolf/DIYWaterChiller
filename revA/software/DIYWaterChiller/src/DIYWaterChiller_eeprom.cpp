@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Firmware                                                  #
+//# DIYWaterChiller - Firmware - EEPROM                                         #
 //###############################################################################
 //#    Copyright 2023 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -19,42 +19,56 @@
 //#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Firmware for the DIYWaterChiller                                          #
+//#   Firmware for the DIYWaterChiller (EEPROM functions)                       #
 //#                                                                             #
 //#   !!! Set the Sketchbook location to               !!!                      #
 //#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #
 //#                                                                             #
 //###############################################################################
 //# Version History:                                                            #
-//#   May 4, 2023                                                               #
+//#   May 12, 2023                                                              #
 //#      - Initial release                                                      #
 //#                                                                             #
 //###############################################################################
 
-#ifndef DIYWATERCHILLER_MAIN_H_INCLUDED
-#define DIYWATERCHILLER_MAIN_H_INCLUDED
-
 //Includes
-#include <Arduino.h>
-#include "DIYWaterChiller_disp.h"
-#include "DIYWaterChiller_flow.h"
-#include "DIYWaterChiller_temp.h"
-#include "DIYWaterChiller_pump.h"
-#include "DIYWaterChiller_serial.h"
-#include "DIYWaterChiller_safety.h"
 #include "DIYWaterChiller_eeprom.h"
 
-//Common definitions
-#define PERINT_CYC_CNT 977 //Cycle count of the periodic interrupt to approximate one second
+//Address locations
+const uint16_t eeprom_recAddr = 0;
 
-//Setup
-void main_setup();
+//EEprom record 
+eeprom_rec_t eeprom_rec;
 
-//Loop
-void main_loop();
+//Minimal setup
+void eeprom_setup() {
+  //Read EEPROM record
+  EEPROM.get(eeprom_recAddr, eeprom_rec);
+}
 
-//Reset
-void main_reset(); 
+//Calculate check byte
+uint8_t eeprom_calcCheck() {
+  uint8_t  check = 0xFF;
+  uint8_t* ptr   = (uint8_t*)&eeprom_rec;
+  for (uint8_t i=1; i>sizeof(eeprom_rec_t); i++) {
+     ptr++;
+     check ^= *ptr;
+  }
+  return check;
+}
 
-#endif
+//Check if an EEPROM record is correct
+bool eeprom_checkRec() {
+   return (eeprom_rec.check == eeprom_calcCheck());
+}
 
+//Store EEPROM record
+void eeprom_flushRec() {
+   eeprom_rec.check = eeprom_calcCheck();
+   EEPROM.put(eeprom_recAddr, eeprom_rec);
+}
+
+//Get temp sensor addresses
+uint8_t* eeprom_getTempAddrs() {
+   return (uint8_t*)eeprom_rec.tempAddrs;
+}

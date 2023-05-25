@@ -57,7 +57,7 @@ void main_setup() {
 
   disp_setup();
   disp_drawData(false);
-  //eeprom_setup();
+  eeprom_setup();
   //temp_setup();
   flow_setup();
 
@@ -85,7 +85,8 @@ void main_loop() {
       //Check for leakage
 
       //Read temperatures
-      
+      temp_scan();
+  
       //Check inlet temperature
 
       //Calculate control loop cyccle
@@ -107,6 +108,9 @@ void main_loop() {
       delay(1000);
   //  }
 }
+
+//Reset
+void(* resetFunc) (void) = 0; //Reset function at address 0
 
 //Periodic Interrupt (Timer/Counter0 compare match A)
 //This ISR is called every 1.024ms

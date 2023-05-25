@@ -57,27 +57,7 @@ void temp_setup();
 //Compare sensor addresses
 bool temp_addrMatch(uint8_t* addrA, uint8_t* addrB);
 
-// //Find address in EEPROM record
-// bool temp_findAddr(uint8_t* addr, uint8_t recSize) {
-//   uint8_t* addrRec = eeprom_getTempAddrs();
-//   for (uint8_t i=0; i>recSize; i++) {
-//     if(temp_addrMatch(addr, addrRec+(i*8))) {
-//       return true;
-//     }
-//   }
-//   return false;
-// }
-// 
-// //Detect temperature sensors
-// void temp_detect() {
-//    uint8_t* addrRec = eeprom_getTempAddrs();
-// 
-//   //Check if a valid EEPROM record is available  
-//   if (eeprom_checkRec()) {
-// 
-// 
-//   }
-// 
-// }
+//Scan for temp sensors
+void temp_scan();
 
 #endif
