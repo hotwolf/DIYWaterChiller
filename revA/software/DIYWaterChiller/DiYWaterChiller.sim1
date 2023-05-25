@@ -28,9 +28,9 @@
 
 <item itemtype="Rail" CircId="Rail-485" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="340,28" rotation="0" hflip="1" vflip="1" label="Rail-485" idLabPos="-16,-24" labelrot="0" valLabPos="-21,-5" valLabRot="0" Voltage="5 V" />
 
-<item itemtype="Subcircuit" CircId="L293-493" mainComp="false" Show_id="true" Show_Val="false" Pos="252,-100" rotation="0" hflip="-1" vflip="1" label="L293P" idLabPos="27,-14" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1e+9 Ω" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Tpd_ps="10000 ps" Tr_ps="3000 ps" Tf_ps="4000 ps" Logic_Symbol="true" />
+<item itemtype="Subcircuit" CircId="L293-493" mainComp="false" Show_id="true" Show_Val="false" Pos="252,-100" rotation="0" hflip="-1" vflip="1" label="L293D" idLabPos="27,-14" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1e+9 Ω" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Tpd_ps="10000 ps" Tr_ps="3000 ps" Tf_ps="4000 ps" Logic_Symbol="true" />
 
-<item itemtype="Subcircuit" CircId="L293-494" mainComp="false" Show_id="true" Show_Val="false" Pos="300,-100" rotation="0" hflip="1" vflip="1" label="L293P" idLabPos="2,-14" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1e+9 Ω" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Tpd_ps="10000 ps" Tr_ps="3000 ps" Tf_ps="4000 ps" Logic_Symbol="true" />
+<item itemtype="Subcircuit" CircId="L293-494" mainComp="false" Show_id="true" Show_Val="false" Pos="300,-100" rotation="0" hflip="1" vflip="1" label="L293D" idLabPos="2,-14" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1e+9 Ω" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Tpd_ps="10000 ps" Tr_ps="3000 ps" Tf_ps="4000 ps" Logic_Symbol="true" />
 
 <item itemtype="Rail" CircId="Rail-659" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="236,-124" rotation="0" hflip="1" vflip="1" label="Rail-659" idLabPos="-16,-24" labelrot="0" valLabPos="-21,-5" valLabRot="0" Voltage="5 V" />
 
@@ -126,7 +126,7 @@
 
 <item itemtype="Rail" CircId="Rail-1416" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="564,-116" rotation="180" hflip="1" vflip="1" label="Rail-1416" idLabPos="-5,-10" labelrot="-90" valLabPos="-4.30162,6" valLabRot="-180" Voltage="12 V" />
 
-<item itemtype="Oscope" CircId="Oscope-1424" mainComp="false" Show_id="false" Show_Val="false" Pos="452,-412" rotation="0" hflip="1" vflip="1" label="Oscope-1424" idLabPos="-90,-100" labelrot="0" valLabPos="-16,20" valLabRot="0" Basic_X="135 _Pixels" Basic_Y="135 _Pixels" BufferSize="600000 Samples" TimDiv="636483507" TimPos="-1790730470,-1790730470,-1790730470,-1790730470," VolDiv="1,1,1,1," Tunnels="warm in,warm out,cold in,cold out," Trigger="4" Filter="0.1 V" Trigger="4" AutoSC="4" Tracks="1" HideCh="false,false,false,false," VolPos="0,0,0,0," />
+<item itemtype="Oscope" CircId="Oscope-1424" mainComp="false" Show_id="false" Show_Val="false" Pos="452,-388" rotation="0" hflip="1" vflip="1" label="Oscope-1424" idLabPos="-90,-100" labelrot="0" valLabPos="-16,20" valLabRot="0" Basic_X="135 _Pixels" Basic_Y="135 _Pixels" BufferSize="600000 Samples" TimDiv="636483507" TimPos="-1790730470,-1790730470,-1790730470,-1790730470," VolDiv="1,1,1,1," Tunnels="warm in,warm out,cold in,cold out," Trigger="4" Filter="0.1 V" Trigger="4" AutoSC="4" Tracks="1" HideCh="false,false,false,false," VolPos="0,0,0,0," />
 
 <item itemtype="Node" CircId="Node-432" mainComp="false" Pos="492,216" />
 
@@ -466,19 +466,19 @@
 
 <item itemtype="Connector" uid="Connector-1423" startpinid="Node-554-1" endpinid="Node-1425-0" pointList="268,-44,268,-76" />
 
-<item itemtype="Connector" uid="Connector-1430" startpinid="Node-1425-1" endpinid="Oscope-1424-Pin0" pointList="268,-76,268,-460,364,-460" />
+<item itemtype="Connector" uid="Connector-1430" startpinid="Node-1425-1" endpinid="Oscope-1424-Pin0" pointList="268,-76,268,-436,364,-436" />
 
 <item itemtype="Connector" uid="Connector-1431" startpinid="Node-1425-2" endpinid="L293-493-12EN" pointList="268,-76,260,-76" />
 
-<item itemtype="Connector" uid="Connector-1432" startpinid="Oscope-1424-Pin1" endpinid="Node-1426-1" pointList="364,-428,208,-428,208,-92" />
+<item itemtype="Connector" uid="Connector-1432" startpinid="Oscope-1424-Pin1" endpinid="Node-1426-1" pointList="364,-404,208,-404,208,-92" />
 
 <item itemtype="Connector" uid="Connector-1433" startpinid="Node-1426-2" endpinid="Node-787-1" pointList="208,-92,212,-92" />
 
-<item itemtype="Connector" uid="Connector-1434" startpinid="Oscope-1424-Pin3" endpinid="Node-1427-1" pointList="364,-364,344,-364,344,-92" />
+<item itemtype="Connector" uid="Connector-1434" startpinid="Oscope-1424-Pin3" endpinid="Node-1427-1" pointList="364,-340,344,-340,344,-92" />
 
 <item itemtype="Connector" uid="Connector-1435" startpinid="Node-1427-2" endpinid="DcMotor-782-lPin" pointList="344,-92,348,-92" />
 
-<item itemtype="Connector" uid="Connector-1436" startpinid="Oscope-1424-Pin2" endpinid="Node-1428-1" pointList="364,-396,284,-396,284,-76" />
+<item itemtype="Connector" uid="Connector-1436" startpinid="Oscope-1424-Pin2" endpinid="Node-1428-1" pointList="364,-372,284,-372,284,-76" />
 
 <item itemtype="Connector" uid="Connector-1437" startpinid="Node-1428-2" endpinid="L293-494-12EN" pointList="284,-76,292,-76" />
 
