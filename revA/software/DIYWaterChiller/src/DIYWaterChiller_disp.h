@@ -127,4 +127,19 @@ inline void disp_drawWatt() __attribute__((always_inline));
 //Draw % unit
 void disp_drawPercent(int16_t x, uint16_t textCol);
 
+//Mark temperature sensor
+void disp_markTemp(uint8_t index, bool ok);
+
+//Show disconnect message
+void disp_disconMsg();
+
+//Show connect message
+void disp_conMsg();
+
+//Show connect message
+void disp_conMsg();
+
+//Clear message
+void disp_clrMsg();
+
 #endif

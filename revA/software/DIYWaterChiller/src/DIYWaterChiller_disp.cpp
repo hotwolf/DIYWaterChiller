@@ -200,8 +200,8 @@ void disp_drawOutTemp(bool update) {
     disp_drawDegC(213,100,COL_GREENTEXT,COL_BACKGROUND);
   }
 }
-
-//Draw laser heat dissapation
+  
+//Draw laser heat dissapatio
 void disp_drawHeat(bool update) {
 
   if (!update) {
@@ -276,7 +276,6 @@ void disp_drawWatt() {
   disp.setTextColor(COL_LIGHTTEXT,COL_LASERBASE1);
   disp.setTextSize(4);
   disp.print(F("W"));
-  
 }
 
 //Draw % unit
@@ -286,7 +285,64 @@ void disp_drawPercent(int16_t x, uint16_t textCol) {
   disp.setTextColor(textCol,COL_PUMP);
   disp.setTextSize(1,2);
   disp.print(F("%"));
-  
-
-  
 }
+
+//Mark temperature sensor
+void disp_markTemp(uint8_t index, bool ok) {
+  uint16_t x, y, bgCol;
+  switch (index) {
+    //Cold tank
+    case 0:
+      x     = 18;
+      y     = 274;
+      bgCol = COL_COLDWATER;
+      break;
+    //Warm tank
+    case 1:
+      x     = 138;
+      y     = 274;
+      bgCol = COL_WARMWATER;
+      break;
+    //Inlet
+    case 2:
+      x     = 3;
+      y     = 100;
+      bgCol = COL_BACKGROUND;
+      break;
+    //Outlet
+    case 3:
+      x     = 152;
+      y     = 100;
+      bgCol = COL_BACKGROUND;
+      break;
+    //Invalid
+    default:
+      return;
+  }
+  disp.setCursor(x,y);
+  disp.setTextColor(ok?COL_GREENTEXT:COL_REDTEXT,bgCol);
+  disp.setTextSize(2,2);
+  disp.print(ok?F("   ok!  "):F("connect"));      
+}
+
+//Show disconnect message
+void disp_disconMsg() {
+
+
+
+}
+
+//Show connect message
+void disp_conMsg() {
+
+
+
+}
+
+//Clear message
+void disp_clrMsg() {
+
+
+
+}
+

@@ -31,6 +31,9 @@
 //#                                                                             #
 //###############################################################################
 
+#ifndef DIYWATERCHILLER_EEPROM_H_INCLUDED
+#define DIYWATERCHILLER_EEPROM_H_INCLUDED
+
 //Libraries
 #include <Arduino.h>
 #include <EEPROM.h>
@@ -42,7 +45,7 @@ typedef struct {
                              {0,0,0,0,0,0,0,0},        
                              {0,0,0,0,0,0,0,0},  
                              {0,0,0,0,0,0,0,0}};
-} eeprom_rec_t;
+} eeprom_rec_t; 
 
 //Minimal setup
 void eeprom_setup();
@@ -58,3 +61,5 @@ void eeprom_flushRec();
 
 //Get temp sensor addresses
 uint8_t* eeprom_getTempAddrs();
+
+#endif

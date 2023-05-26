@@ -56,10 +56,10 @@ void main_setup() {
   //disp.fillTriangle(217,8, 217,13, 219,13, 0);
 
   disp_setup();
-  disp_drawData(false);
   eeprom_setup();
-  //temp_setup();
+  temp_setup();
   flow_setup();
+  disp_drawData(false);
 
   pinMode(5, OUTPUT);
   pinMode(6, OUTPUT);
@@ -85,7 +85,7 @@ void main_loop() {
       //Check for leakage
 
       //Read temperatures
-      temp_scan();
+      
   
       //Check inlet temperature
 

@@ -34,30 +34,38 @@
 #ifndef DIYWATERCHILLER_TEMP_H_INCLUDED
 #define DIYWATERCHILLER_TEMP_H_INCLUDED
 
-//DS18B20 definitions
-#define ONEWIRE_SEARCH  0
+//DS18B20 definitions 
 #define ONEWIRE_PIN     4
+#define REQUIRESALARMS  false
+
 #define TEMP_COLD       0
 #define TEMP_WARM       1
 #define TEMP_INLET      2
 #define TEMP_OUTLET     3
-#define TEMP_SIMULATION 1
 
 //Libraries
 #include <Arduino.h>
 #include <OneWire.h>
-#include <DS18B20.h>
+#include <DallasTemperature.h>
+#include "DIYWaterChiller_eeprom.h"
+#include "DIYWaterChiller_disp.h"
 
 //IO setup
 void temp_ioSetup();
 
 //Start temp sensors
 void temp_setup();
-  
+
+//Validate address list
+uint8_t temp_valDevAddrs(uint8_t devAddrs);
+
+//Check if any sensor is connected
+bool temp_anyDev();
+
+//Find new sensor
+bool temp_findNewDev(uint8_t index, uint8_t* devAddrs);
+
 //Compare sensor addresses
 bool temp_addrMatch(uint8_t* addrA, uint8_t* addrB);
-
-//Scan for temp sensors
-void temp_scan();
 
 #endif

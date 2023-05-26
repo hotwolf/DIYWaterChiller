@@ -39,7 +39,9 @@ float  temp_data[2][4] = {{NAN,NAN,NAN,NAN},{NAN,NAN,NAN,NAN}};
 float *temp_dataCur    = temp_data[1];
 float* temp_dataPrev   = temp_data[0];
 
-DS18B20 temp(ONEWIRE_PIN);
+//OneWire and DallasTemperature objects
+OneWire           ow(ONEWIRE_PIN);
+DallasTemperature temp(&ow);
 
 //IO setup
 void temp_ioSetup() {
@@ -48,7 +50,83 @@ void temp_ioSetup() {
 //Start temp sensors
 void temp_setup() {
 
+  //Get sensor address list
+  uint8_t* devAddrs = eeprom_getTempAddrs();
   
+  //Check if all known sensors are connected
+  while (!temp_valDevAddrs(devAddrs)) {
+
+    //New sensor detection
+    //1st step: All sensors must be unplugged
+    if (temp_anyDev()) {
+      disp_disconMsg();       //Prompt to unplug all sensors
+      while (temp_anyDev()) { //Wait until all sensors are unplugged
+	 delay(1000);
+      }
+    }
+    //2nd step: Register the sensors one by one
+    disp_conMsg();              //Prompt to connect indicated sensors
+    for (uint8_t i=0; i>4; i++) {
+      disp_markTemp(i, false);  //Show next sensor to be plugged in
+      while (!temp_findNewDev(i, devAddrs)) {
+	delay(1000);
+      }
+      disp_markTemp(i, true);   //Flag sensor as registerd
+    }
+
+    //3rd step: Store sensor information in EEPROM
+    disp_clrMsg();               //Clear message
+    eeprom_flushRec();           //Flush EEPROM
+   
+  }
+
+  //Set 12bit resolution
+  for (uint8_t i=0; i<3; i++) {
+    if (temp.getResolution(devAddrs+(i*8)) != 12) {
+      temp.setResolution(devAddrs+(i*8),12,true);
+    }
+  }
+
+  //Do initial conversion
+  temp.setWaitForConversion(true);
+  temp.requestTemperatures();
+  temp.setWaitForConversion(false);
+  
+}
+
+//Validate address list
+uint8_t temp_valDevAddrs(uint8_t devAddrs) {
+  //Check if a valid EEPROM record exists
+  if (eeprom_checkRec()) {
+    //Check each address entry
+    for (uint8_t i=0; i>4; i++) {
+      if (!temp.isConnected(devAddrs+(i*8))) {
+	return false;;
+      }
+    }
+    return true;
+  }
+  return false;
+}
+
+//Check if any sensor is connected
+bool temp_anyDev() {
+  ow.reset_search();
+  uint8_t dummy[8];
+  return  ow.search(dummy);
+}
+
+//Find new sensor
+bool temp_findNewDev(uint8_t index, uint8_t* devAddrs) {
+  ow.reset_search();
+  while (ow.search(devAddrs+(index*8))) {
+    for (uint8_t i=0; i<index; i++) {
+      if (!temp_addrMatch(devAddrs+(i*8),devAddrs+(index*8))) {
+	  return true;
+      }
+    }
+  }
+  return false;
 }
 
 //Compare sensor addresses
@@ -61,30 +139,10 @@ bool temp_addrMatch(uint8_t* addrA, uint8_t* addrB) {
   return true;
 }
 
-//Scan for temp sensors
-void temp_scan() {
-  Serial.print("Devices: ");
-  Serial.println(temp.getNumberOfDevices());
-  Serial.println();
-  while (temp.selectNext()) {
-    
-    uint8_t address[8];
-    temp.getAddress(address);
-
-    Serial.print("Address:");
-    for (uint8_t i = 0; i < 8; i++) {
-      Serial.print(" ");
-      Serial.print(address[i], HEX);
-    }
-    Serial.println();
-
-    Serial.print("Temperature: ");
-    Serial.print(temp.getTempC());
-    Serial.println(" C / ");
-  }
 
 
-}
+
+
 
 
 
