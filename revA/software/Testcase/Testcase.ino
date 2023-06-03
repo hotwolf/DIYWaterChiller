@@ -66,6 +66,11 @@ void setup() {
   Serial.println(F("   RESET!"));
   Serial.println(F("######################"));
   Serial.println(F(""));
+  pinMode(ONEWIRE_PIN, OUTPUT);
+  digitalWrite(ONEWIRE_PIN, LOW);
+  //delay(1);
+  pinMode(ONEWIRE_PIN, INPUT);
+
 }
 
 //Loop

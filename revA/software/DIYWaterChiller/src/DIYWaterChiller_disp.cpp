@@ -285,31 +285,31 @@ void disp_drawPercent(int16_t x, uint16_t textCol) {
 }
 
 //Mark temperature sensor
-void disp_markTemp(uint8_t index, bool ok) {
+void disp_markTemp(uint8_t index, disp_tempReq_t req) {
   uint16_t x, y, bgCol;
   switch (index) {
     //Cold tank
     case 0:
-      x     = 28;
+      x     = 38;
       y     = 274;
       bgCol = COL_COLDWATER;
       break;
     //Warm tank
     case 1:
-      x     = 148;
+      x     = 158;
       y     = 274;
       bgCol = COL_WARMWATER;
       break;
     //Inlet
     case 2:
-      x     =13;
-      y     = 105;
+      x     =23;
+      y     = 110;
       bgCol = COL_BACKGROUND;
       break;
     //Outlet
     case 3:
-      x     = 162;
-      y     = 105;
+      x     = 172;
+      y     = 110;
       bgCol = COL_BACKGROUND;
       break;
     //Invalid
@@ -317,32 +317,27 @@ void disp_markTemp(uint8_t index, bool ok) {
       return;
   }
   disp.setCursor(x,y);
-  disp.setTextColor(ok?COL_GREENTEXT:COL_REDTEXT,bgCol);
-  disp.setTextSize(1);
-  disp.print(ok?F("   ok!  "):F("connect!"));      
+  disp.setTextColor((req==OK)?COL_GREENTEXT:COL_REDTEXT,bgCol);
+  disp.setTextSize(1,2);
+  disp.print((req==CLEAR)  ?F("        "):
+	     (req==CONNECT)?F("connect!"):
+	                    F("  ok!   "));      
 }
 
 //Show disconnect message
 void disp_disconMsg() {
-  disp.setCursor(48,160);
+  disp.setCursor(48,155);
   disp.setTextColor(COL_REDTEXT,COL_BACKGROUND);
-  disp.setTextSize(1);
+  disp.setTextSize(1,2);
   disp.print(F("Unplug all temp sensors!"));      
- 
-
-
-
 }
 
 //Show connect message
 void disp_conMsg() {
-
-
-
 }
 
 //Clear message
 void disp_clrMsg() {
-  disp.fillRect(48,160, 24*6, 8, COL_BACKGROUND);
+  disp.fillRect(48,155, 24*6, 16, COL_BACKGROUND);
 }
 

@@ -69,6 +69,9 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_ILI9341.h>
 
+//Typedefs
+typedef enum: uint8_t {CLEAR, CONNECT, OK} disp_tempReq_t;
+
 //IO setup
 void disp_ioSetup();
 
@@ -128,7 +131,7 @@ inline void disp_drawWatt() __attribute__((always_inline));
 void disp_drawPercent(int16_t x, uint16_t textCol);
 
 //Mark temperature sensor
-void disp_markTemp(uint8_t index, bool ok);
+void disp_markTemp(uint8_t index, disp_tempReq_t req);
 
 //Show disconnect message
 void disp_disconMsg();

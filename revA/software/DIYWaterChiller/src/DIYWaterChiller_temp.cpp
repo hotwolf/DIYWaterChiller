@@ -45,6 +45,11 @@ DallasTemperature temp(&ow);
 
 //IO setup
 void temp_ioSetup() {
+  //Reset pulse, required for simulation 
+  pinMode(ONEWIRE_PIN, OUTPUT);
+  digitalWrite(ONEWIRE_PIN, LOW);
+  //delay(1);
+  pinMode(ONEWIRE_PIN, INPUT);
 }
 
 //Start temp sensors
@@ -74,13 +79,16 @@ void temp_setup() {
     //2nd step: Register the sensors one by one
     //disp_conMsg();              //Prompt to connect indicated sensors
     for (uint8_t i=0; i<4; i++) {
-      disp_markTemp(i, false);  //Show next sensor to be plugged in
+      disp_markTemp(i, CONNECT);  //Show next sensor to be plugged in
       while (!temp_findNewDev(i, devAddrs)) {
 	delay(100);
       }
-      disp_markTemp(i, true);   //Flag sensor as registerd
+      disp_markTemp(i, OK);   //Flag sensor as registerd
     }
-
+    for (uint8_t i=0; i<4; i++) {
+      disp_markTemp(i, CLEAR); //Clear flags
+    }
+    
     //3rd step: Store sensor information in EEPROM
     eeprom_flushRec();           //Flush EEPROM
    
@@ -124,7 +132,7 @@ bool temp_anyDev() {
   ow.reset_search();
   uint8_t dummy[8];
   bool result = ow.search(dummy);
-  temp_printAddr("dummy ", dummy);
+  //temp_printAddr("dummy ", dummy);
   Serial.print(F("result: "));
   Serial.println(result,DEC);
 

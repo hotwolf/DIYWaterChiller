@@ -46,7 +46,7 @@ void main_setup() {
   //sound_ioSetup();
   disp_ioSetup();
   flow_ioSetup();
-  //temp_ioSetup();
+  temp_ioSetup();
   //keys_ioSetup();
   serial_ioSetup();
  
