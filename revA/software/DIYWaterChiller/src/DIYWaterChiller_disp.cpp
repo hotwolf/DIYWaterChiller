@@ -45,9 +45,6 @@ void disp_ioSetup() {
 //IO setup
 void disp_setup() {
   //Draw background
-  Serial.println("disp_setup");
-  //disp.fillRect(20,14,  200, 60, COL_REDTEXT);
-  //disp_clear();
   disp_drawBackground(); 
 }
 
@@ -293,26 +290,26 @@ void disp_markTemp(uint8_t index, bool ok) {
   switch (index) {
     //Cold tank
     case 0:
-      x     = 18;
+      x     = 28;
       y     = 274;
       bgCol = COL_COLDWATER;
       break;
     //Warm tank
     case 1:
-      x     = 138;
+      x     = 148;
       y     = 274;
       bgCol = COL_WARMWATER;
       break;
     //Inlet
     case 2:
-      x     = 3;
-      y     = 100;
+      x     =13;
+      y     = 105;
       bgCol = COL_BACKGROUND;
       break;
     //Outlet
     case 3:
-      x     = 152;
-      y     = 100;
+      x     = 162;
+      y     = 105;
       bgCol = COL_BACKGROUND;
       break;
     //Invalid
@@ -321,12 +318,17 @@ void disp_markTemp(uint8_t index, bool ok) {
   }
   disp.setCursor(x,y);
   disp.setTextColor(ok?COL_GREENTEXT:COL_REDTEXT,bgCol);
-  disp.setTextSize(2,2);
-  disp.print(ok?F("   ok!  "):F("connect"));      
+  disp.setTextSize(1);
+  disp.print(ok?F("   ok!  "):F("connect!"));      
 }
 
 //Show disconnect message
 void disp_disconMsg() {
+  disp.setCursor(48,160);
+  disp.setTextColor(COL_REDTEXT,COL_BACKGROUND);
+  disp.setTextSize(1);
+  disp.print(F("Unplug all temp sensors!"));      
+ 
 
 
 
@@ -341,8 +343,6 @@ void disp_conMsg() {
 
 //Clear message
 void disp_clrMsg() {
-
-
-
+  disp.fillRect(48,160, 24*6, 8, COL_BACKGROUND);
 }
 

@@ -48,18 +48,28 @@ void eeprom_setup() {
 
 //Calculate check byte
 uint8_t eeprom_calcCheck() {
-  uint8_t  check = 0xFF;
+  uint8_t  check = 0x55;
   uint8_t* ptr   = (uint8_t*)&eeprom_rec;
-  for (uint8_t i=1; i>sizeof(eeprom_rec_t); i++) {
+  for (uint8_t i=1; i<sizeof(eeprom_rec_t); i++) {
+     //Serial.print(F("ptr: "));
+     //Serial.println((int)ptr,HEX);
+     //Serial.print(F("*ptr: "));
+     //Serial.println(*ptr,HEX);    
      ptr++;
      check ^= *ptr;
+     //Serial.print(F("check: "));
+     //Serial.println(check,HEX);
   }
   return check;
 }
 
 //Check if an EEPROM record is correct
 bool eeprom_checkRec() {
-   return (eeprom_rec.check == eeprom_calcCheck());
+  //Serial.print(F("eeprom_rec.check: "));
+  //Serial.println(eeprom_rec.check,HEX);
+  //Serial.print(F("eeprom_calcCheck(): "));
+  //Serial.println(eeprom_calcCheck(),HEX);
+  return (eeprom_rec.check == eeprom_calcCheck());
 }
 
 //Store EEPROM record

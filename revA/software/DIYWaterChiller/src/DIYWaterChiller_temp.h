@@ -57,7 +57,7 @@ void temp_ioSetup();
 void temp_setup();
 
 //Validate address list
-uint8_t temp_valDevAddrs(uint8_t devAddrs);
+uint8_t temp_valDevAddrs(uint8_t* devAddrs);
 
 //Check if any sensor is connected
 bool temp_anyDev();
@@ -67,5 +67,8 @@ bool temp_findNewDev(uint8_t index, uint8_t* devAddrs);
 
 //Compare sensor addresses
 bool temp_addrMatch(uint8_t* addrA, uint8_t* addrB);
+
+//print sensor addresses
+void temp_printAddr(char* label, uint8_t* addr);
 
 #endif
