@@ -205,8 +205,8 @@ void disp_drawHeat(bool update) {
        temp_newInletData()  ||  
        temp_newOutletData()) {
 
-     float heat = (4.184 * 998.19 / (2 * 60))  *
-                  (flow_getInletData() + flow_getOutletData()) *
+     float heat = (4.184 * 998.19 / 60)  *
+                  flow_getAvgData() *
                   (temp_getOutletData() - temp_getInletData());
      disp_drawFloat(47,35,heat,COL_LIGHTTEXT,COL_LASERBASE1,4,4);
    }

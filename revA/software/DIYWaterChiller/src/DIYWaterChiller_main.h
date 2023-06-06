@@ -45,6 +45,7 @@
 #include "DIYWaterChiller_eeprom.h"
 #include "DIYWaterChiller_sound.h"
 #include "DIYWaterChiller_keys.h"
+#include "DIYWaterChiller_ctrloop.h"
 
 //Common definitions
 #define PERINT_CYC_CNT 977 //Cycle count of the periodic interrupt to approximate one second

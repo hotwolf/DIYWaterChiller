@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Firmware - Flow Sensors                                   #
+//# DIYWaterChiller - Firmware - Controller                                     #
 //###############################################################################
 //#    Copyright 2023 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -19,7 +19,7 @@
 //#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Firmware for the DIYWaterChiller (flow sensor functions)                  #
+//#   Firmware for the DIYWaterChiller (dontroller functions)                   #
 //#                                                                             #
 //#   !!! Set the Sketchbook location to               !!!                      #
 //#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #
@@ -31,43 +31,12 @@
 //#                                                                             #
 //###############################################################################
 
-#ifndef DIYWATERCHILLER_FLOW_H_INCLUDED
-#define DIYWATERCHILLER_FLOW_H_INCLUDED
+#ifndef DIYWATERCHILLER_CTRLOOP_H_INCLUDED
+#define DIYWATERCHILLER_CTRLOOP_H_INCLUDED
 
 //Includes
 #include <Arduino.h>
 
-//IO definitions
-#define FLOW_IN   2
-#define FLOW_OUT  3
 
-//Sensor definitions
-#define FLOW_CNT_TO_FLOWRATE 1.000448/(2*23) //2*23 pulses/sec ~> 1/min (both edges)
-
-//Flow sensor data
-typedef struct {
-        uint16_t  inlet;       //Inlet flow rate [pulse/s]
-        uint16_t  outlet;      //Outlet flow rate [pulse/s]
-} flow_data_t;
-
-//IO setup
-void flow_ioSetup();
-
-//Start flow sensors
-void flow_setup();
-
-//Capture sensor data
-void flow_capture();
-
-//Check if readings have changed
-bool flow_newInletData();
-bool flow_newOutletData();
-
-//Get current flow rate in l/min
-float flow_getInletData();
-float flow_getOutletData();
-float flow_getAvgData();
 
 #endif
-
-

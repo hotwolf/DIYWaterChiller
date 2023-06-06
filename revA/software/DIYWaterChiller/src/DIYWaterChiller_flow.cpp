@@ -84,6 +84,9 @@ float flow_getInletData() {
 float flow_getOutletData() {
   return (float)flow_dataCur->outlet * FLOW_CNT_TO_FLOWRATE;
 }
+float flow_getAvgData() {
+  return (float)((flow_dataCur->inlet + flow_dataCur->outlet) * (FLOW_CNT_TO_FLOWRATE/2));
+}
 
 //Interrupt service routines
 //Flow meter inlet event
