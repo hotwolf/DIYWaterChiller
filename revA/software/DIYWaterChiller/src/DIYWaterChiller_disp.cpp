@@ -138,62 +138,60 @@ void disp_drawData(bool update) {
 
 //Draw inlet flow rate
 void disp_drawInFlow(bool update) {
-
-   if (!update || flow_newInletData()) {
-     disp_drawFloat(3,118,flow_getInletFlowRate(),COL_DARKTEXT,COL_BACKGROUND,2,2);
-   }
-   if (!update) {
-     disp_drawLpm(64,COL_DARKTEXT);
-   }
+  if (!update || flow_newInletData()) {
+    disp_drawFloat(3,118,flow_getInletData(),COL_DARKTEXT,COL_BACKGROUND,2,2);
+  }
+  if (!update) {
+    disp_drawLpm(64,COL_DARKTEXT);
+  }
 }
     
 //Draw outlet flow rate
 void disp_drawOutFlow(bool update) {
-
-   if (!update || flow_newOutletData()) {
-     disp_drawFloat(152,118,flow_getOutletFlowRate(),COL_DARKTEXT,COL_BACKGROUND,2,2);
-   }//
-   if (!update) {
+  if (!update || flow_newOutletData()) {
+    disp_drawFloat(152,118,flow_getOutletData(),COL_DARKTEXT,COL_BACKGROUND,2,2);
+  }
+  if (!update) {
     disp_drawLpm(213,COL_DARKTEXT);
   }  
 }
   
 //Draw cold tank temperature
 void disp_drawColdTemp(bool update) {
-
+  if (!update || temp_newColdData()) {
+    disp_drawFloat(18,274,temp_getColdData(),COL_COLDTEXT,COL_COLDWATER,2,2);
+  }
   if (!update) {
-    const float temp = 4.38;
-    disp_drawFloat(18,274,temp,COL_COLDTEXT,COL_COLDWATER,2,2);
     disp_drawDegC(79,274,COL_COLDTEXT,COL_COLDWATER);
   }
 }
     
 //Draw warm tank temperature
 void disp_drawWarmTemp(bool update) {
-
+  if (!update || temp_newWarmData()) {
+    disp_drawFloat(138,274,temp_getWarmData(),COL_WARMTEXT,COL_WARMWATER,2,2);
+  }  
   if (!update) {
-    const float temp = 24.78;
-    disp_drawFloat(138,274,temp,COL_WARMTEXT,COL_WARMWATER,2,2);
     disp_drawDegC(199,274,COL_WARMTEXT,COL_WARMWATER);
   }
-}
+} 
 
 //Draw inlet temperature
 void disp_drawInTemp(bool update) {
-
+  if (!update || temp_newInletData()) {
+    disp_drawFloat(3,100,temp_getInletData(),COL_GREENTEXT,COL_BACKGROUND,2,2);
+  }  
   if (!update) {
-    const float temp = 24.27;
-    disp_drawFloat(3,100,temp,COL_GREENTEXT,COL_BACKGROUND,2,2);
     disp_drawDegC(64,100,COL_GREENTEXT,COL_BACKGROUND);
   }
 }
     
 //Draw outlet temperature
 void disp_drawOutTemp(bool update) {
-
+  if (!update || temp_newOutletData()) {
+    disp_drawFloat(152,100,temp_getOutletData(),COL_GREENTEXT,COL_BACKGROUND,2,2);
+  }  
   if (!update) {
-    const float temp = 31.93;
-    disp_drawFloat(152,100,temp,COL_GREENTEXT,COL_BACKGROUND,2,2);
     disp_drawDegC(213,100,COL_GREENTEXT,COL_BACKGROUND);
   }
 }
@@ -201,9 +199,18 @@ void disp_drawOutTemp(bool update) {
 //Draw laser heat dissapatio
 void disp_drawHeat(bool update) {
 
-  if (!update) {
-    const float temp = 123.45;
-    disp_drawFloat(47,35,temp,COL_LIGHTTEXT,COL_LASERBASE1,4,4);
+   if (!update              ||
+       flow_newInletData()  ||
+       flow_newOutletData() ||
+       temp_newInletData()  ||  
+       temp_newOutletData()) {
+
+     float heat = (4.184 * 998.19 / (2 * 60))  *
+                  (flow_getInletData() + flow_getOutletData()) *
+                  (temp_getOutletData() - temp_getInletData());
+     disp_drawFloat(47,35,heat,COL_LIGHTTEXT,COL_LASERBASE1,4,4);
+   }
+   if (!update) {
     disp_drawWatt();
   }
 }

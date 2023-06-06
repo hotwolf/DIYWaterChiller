@@ -45,10 +45,9 @@ DallasTemperature temp(&ow);
 
 //IO setup
 void temp_ioSetup() {
-  //Reset pulse, required for simulation 
+  //Workaround for simulation issue
   pinMode(ONEWIRE_PIN, OUTPUT);
   digitalWrite(ONEWIRE_PIN, LOW);
-  //delay(1);
   pinMode(ONEWIRE_PIN, INPUT);
 }
 
@@ -68,8 +67,9 @@ void temp_setup() {
     //1st step: All sensors must be unplugged
     //Serial.println(F("Unplug all sensors"));
     if (temp_anyDev()) {
-      disp_disconMsg();       //Prompt to unplug all sensors
-      while (temp_anyDev()) { //Wait until all sensors are unplugged
+      disp_disconMsg();        //Prompt to unplug all sensors
+      sound_playReqForInput(); //Audio signal
+      while (temp_anyDev()) {  //Wait until all sensors are unplugged
 	 delay(100);
       }
     }
@@ -80,6 +80,7 @@ void temp_setup() {
     //disp_conMsg();              //Prompt to connect indicated sensors
     for (uint8_t i=0; i<4; i++) {
       disp_markTemp(i, CONNECT);  //Show next sensor to be plugged in
+      sound_playReqForInput();    //Audio signal
       while (!temp_findNewDev(i, devAddrs)) {
 	delay(100);
       }
@@ -104,6 +105,7 @@ void temp_setup() {
   //Do initial conversion
   temp.setWaitForConversion(true);
   temp.requestTemperatures();
+  temp_capture();
   temp.setWaitForConversion(false);
   
 }
@@ -133,13 +135,9 @@ bool temp_anyDev() {
   uint8_t dummy[8];
   bool result = ow.search(dummy);
   //temp_printAddr("dummy ", dummy);
-  Serial.print(F("result: "));
-  Serial.println(result,DEC);
-
-
-  
+  //Serial.print(F("result: "));
+  //Serial.println(result,DEC);
   return result;
-  return  ow.search(dummy);
 }
 
 //Find new sensor
@@ -178,7 +176,7 @@ bool temp_addrMatch(uint8_t* addrA, uint8_t* addrB) {
   return true;
 }
 
-//print sensor addresses
+//Print sensor addresses
 void temp_printAddr(char* label, uint8_t* addr) {
   Serial.print(label);
   for (uint8_t i=0; i<8; i++) {
@@ -188,7 +186,56 @@ void temp_printAddr(char* label, uint8_t* addr) {
   Serial.println("");
 }
 
+//Capture sensor data
+void temp_capture() {   
+  uint8_t* devAddrs = eeprom_getTempAddrs(); //Get list of sensor addresses
+  float*   nextData = temp_dataPrev;         //Save pointer for new data  
+  temp_dataPrev     = temp_dataCur;          //Preserve previous data
+  //Capture temp sensor data  
+  for (uint8_t i=0; i<4; i++) {
+    *(nextData+i) = temp.getTempC(devAddrs+(8*i));
+    //Serial.println(*(nextData+i));
+  }
+  temp_dataCur = nextData;                   //Set new data data
+  
+  //Trigger next conversion
+  temp.requestTemperatures();
+}
 
+//Check if readings have changed
+bool temp_newColdData() {
+  return (temp_dataPrev[TEMP_COLD] != temp_dataCur[TEMP_COLD]);
+}
 
+bool temp_newWarmData() {
+  return (temp_dataPrev[TEMP_WARM] != temp_dataCur[TEMP_WARM]);
+}
 
+bool temp_newInletData() {
+  return (temp_dataPrev[TEMP_INLET] != temp_dataCur[TEMP_INLET]);
+}
 
+bool temp_newOutletData() {
+  return (temp_dataPrev[TEMP_OUTLET] != temp_dataCur[TEMP_OUTLET]);
+}
+
+//Get temoerature in °C
+float temp_getColdData() {
+  //Serial.println(temp_dataCur[EMP_COLD]); 
+  return temp_dataCur[TEMP_COLD];
+}
+
+float temp_getWarmData() {
+  //Serial.println(temp_dataCur[TEMP_WARM]); 
+  return temp_dataCur[TEMP_WARM];
+}
+
+float temp_getInletData() {
+  //Serial.println(temp_dataCur[TEMP_INLET]); 
+  return temp_dataCur[TEMP_INLET];
+}
+
+float temp_getOutletData() {
+  //Serial.println(temp_dataCur[TEMP_OUTLET]); 
+  return temp_dataCur[TEMP_OUTLET];
+}

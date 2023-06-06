@@ -78,10 +78,10 @@ bool flow_newOutletData() {
 }
 
 //Get current flow rate in l/min
-float flow_getInletFlowRate() {
+float flow_getInletData() {
   return (float)flow_dataCur->inlet * FLOW_CNT_TO_FLOWRATE;
 }
-float flow_getOutletFlowRate() {
+float flow_getOutletData() {
   return (float)flow_dataCur->outlet * FLOW_CNT_TO_FLOWRATE;
 }
 

@@ -43,7 +43,7 @@ void main_setup() {
   //Configure IOs
   safety_ioSetup();
   pump_ioSetup();
-  //sound_ioSetup();
+  sound_ioSetup();
   disp_ioSetup();
   flow_ioSetup();
   temp_ioSetup();
@@ -77,13 +77,15 @@ void main_loop() {
 
    //execute once after each periodic ISR
   //  if (ctrloop_is_new_cycle()) {
+      delay(1000);
      
       //Check for leakage
 
       //Read temperatures
-      
-  
-      //Check inlet temperature
+      temp_capture();  
+     
+      //Safety checks
+    
 
       //Calculate control loop cyccle
 
@@ -101,7 +103,6 @@ void main_loop() {
       disp_drawData(true);
 
    
-      delay(1000);
   //  }
 }
 

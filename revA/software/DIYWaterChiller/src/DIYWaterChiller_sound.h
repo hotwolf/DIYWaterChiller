@@ -17,9 +17,6 @@
 //#    You should have received a copy of the GNU General Public License        #
 //#    along with this project.  If not, see <http://www.gnu.org/licenses/>.    #
 //#                                                                             #
-//#    This project makes use of the NopSCADlib library                         #
-//#    (see https://github.com/nophead/NopSCADlib).                             #
-//#                                                                             #
 //###############################################################################
 //# Description:                                                                #
 //#   Firmware for the DIYWaterChiller (sound functions)                        #
@@ -34,18 +31,44 @@
 //#                                                                             #
 //###############################################################################
  
+#ifndef DIYWATERCHILLER_SOUND_H_INCLUDED
+#define DIYWATERCHILLER_SOUND_H_INCLUDED
+
 //IO definitions
 #define SOUND_OUT_A  18 //A4
 #define SOUND_OUT_B  17 //A3
 
+//Tone definitions
+#define TONE_H6  1976
+#define TONE_A6  1760
+#define TONE_G6  1568
+#define TONE_F6  1397
+#define TONE_E6  1319
+#define TONE_D6  1175
+#define TONE_C6  1047
+#define TONE_H5   988
+#define TONE_A5   880
+#define TONE_G5   784
+#define TONE_F5   698
+#define TONE_E5   659
+#define TONE_D5   587
+#define TONE_C5   523
+#define TONE_H4   494
+#define TONE_A4   440
+#define TONE_G4   392
+#define TONE_F4   349
+#define TONE_E4   330
+#define TONE_D4   294
+#define TONE_C4   262
+
 //Libraries
+#include <Arduino.h>
 #include <toneAC2.h>
 
 //IO setup
-void sound_ioSetup() {
-  //Disable laser
-  pinMode(SOUND_OUT_A, OUTPUT);
-  pinMode(SOUND_OUT_B, OUTPUT);
-  digitalWrite(SOUND_OUT_A, LOW);
-  digitalWrite(SOUND_OUT_B, LOW);
-}
+void sound_ioSetup();
+
+//Request input
+void sound_playReqForInput();
+
+#endif

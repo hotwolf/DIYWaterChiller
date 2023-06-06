@@ -49,6 +49,7 @@
 #include <DallasTemperature.h>
 #include "DIYWaterChiller_eeprom.h"
 #include "DIYWaterChiller_disp.h"
+#include "DIYWaterChiller_sound.h"
 
 //IO setup
 void temp_ioSetup();
@@ -70,5 +71,20 @@ bool temp_addrMatch(uint8_t* addrA, uint8_t* addrB);
 
 //print sensor addresses
 void temp_printAddr(char* label, uint8_t* addr);
+
+//Capture sensor data
+void temp_capture();  
+
+//Check if readings have changed
+bool temp_newColdData();
+bool temp_newWarmData();
+bool temp_newInletData();
+bool temp_newOutletData();
+
+//Get temoerature in °C
+float temp_getColdData();
+float temp_getWarmData();
+float temp_getInletData();
+float temp_getOutletData();
 
 #endif

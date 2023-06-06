@@ -64,8 +64,8 @@ bool flow_newInletData();
 bool flow_newOutletData();
 
 //Get current flow rate in l/min
-float flow_getInletFlowRate();
-float flow_getOutletFlowRate();
+float flow_getInletData();
+float flow_getOutletData();
 
 #endif
 

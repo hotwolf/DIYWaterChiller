@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Firmware                                                  #
+//# DIYWaterChiller - Firmware - Sound                                          #
 //###############################################################################
 //#    Copyright 2023 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -17,45 +17,41 @@
 //#    You should have received a copy of the GNU General Public License        #
 //#    along with this project.  If not, see <http://www.gnu.org/licenses/>.    #
 //#                                                                             #
+//#    This project makes use of the NopSCADlib library                         #
+//#    (see https://github.com/nophead/NopSCADlib).                             #
+//#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Firmware for the DIYWaterChiller                                          #
+//#   Firmware for the DIYWaterChiller (sound functions)                        #
 //#                                                                             #
 //#   !!! Set the Sketchbook location to               !!!                      #
 //#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #
 //#                                                                             #
 //###############################################################################
 //# Version History:                                                            #
-//#   May 4, 2023                                                               #
+//#   May 17, 2023                                                              #
 //#      - Initial release                                                      #
 //#                                                                             #
 //###############################################################################
+ 
+//IO definitions
+#define SOUND_OUT_A  18 //A4
+#define SOUND_OUT_B  17 //A3
 
-#ifndef DIYWATERCHILLER_MAIN_H_INCLUDED
-#define DIYWATERCHILLER_MAIN_H_INCLUDED
-
-//Includes
-#include <Arduino.h>
-#include "DIYWaterChiller_disp.h"
-#include "DIYWaterChiller_flow.h"
+//Libraries
 #include "DIYWaterChiller_temp.h"
-#include "DIYWaterChiller_pump.h"
-#include "DIYWaterChiller_serial.h"
-#include "DIYWaterChiller_safety.h"
-#include "DIYWaterChiller_eeprom.h"
-#include "DIYWaterChiller_sound.h"
 
-//Common definitions
-#define PERINT_CYC_CNT 977 //Cycle count of the periodic interrupt to approximate one second
+//IO setup
+void sound_ioSetup() {
+  //Setup buzzer pins
+  pinMode(SOUND_OUT_A, OUTPUT);
+  pinMode(SOUND_OUT_B, OUTPUT);
+  digitalWrite(SOUND_OUT_A, LOW);
+  digitalWrite(SOUND_OUT_B, LOW);
+}
 
-//Setup
-void main_setup();
-
-//Loop
-void main_loop();
-
-//Reset
-void main_reset(); 
-
-#endif
-
+//Request input
+void sound_playReqForInput() {
+  toneAC2(SOUND_OUT_A, SOUND_OUT_B, TONE_C5, 125, false);
+  toneAC2(SOUND_OUT_A, SOUND_OUT_B, TONE_E5, 125, false);
+}

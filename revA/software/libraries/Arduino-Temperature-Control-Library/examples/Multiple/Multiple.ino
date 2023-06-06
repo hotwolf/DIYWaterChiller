@@ -7,7 +7,7 @@
 #define TEMPERATURE_PRECISION 9
 
 // Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
-OneWire oneWire(ONE_WIRE_BUS);
+OneWire oneWire(ONE_WIRE_BUS);device
 
 // Pass our oneWire reference to Dallas Temperature.
 DallasTemperature sensors(&oneWire);
