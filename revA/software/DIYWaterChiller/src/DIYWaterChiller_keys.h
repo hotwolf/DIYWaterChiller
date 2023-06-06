@@ -17,9 +17,6 @@
 //#    You should have received a copy of the GNU General Public License        #
 //#    along with this project.  If not, see <http://www.gnu.org/licenses/>.    #
 //#                                                                             #
-//#    This project makes use of the NopSCADlib library                         #
-//#    (see https://github.com/nophead/NopSCADlib).                             #
-//#                                                                             #
 //###############################################################################
 //# Description:                                                                #
 //#   Firmware for the DIYWaterChiller (key input functions)                    #
@@ -34,18 +31,19 @@
 //#                                                                             #
 //###############################################################################
 
+#ifndef DIYWATERCHILLER_KEYS_H_INCLUDED
+#define DIYWATERCHILLER_KEYS_H_INCLUDED
+
 //IO definitions 
 #define KEY_A  14
 #define KEY_B  15
 #define KEY_C  16
 
 //Libraries
+#include <Arduino.h>
 #include <debounce.h>
 
 //IO setup
-void keys_ioSetup() {
-  //Setup IO
-  pinMode(KEY_A, INPUT_PULLUP);
-  pinMode(KEY_B, INPUT_PULLUP);
-  pinMode(KEY_C, INPUT_PULLUP);
-}
+void keys_ioSetup();
+
+#endif

@@ -1,5 +1,5 @@
 //###############################################################################
-//# DIYWaterChiller - Firmware                                                  #
+//# DIYWaterChiller - Firmware - Keys                                           #
 //###############################################################################
 //#    Copyright 2023 Dirk Heisswolf                                            #
 //#    This file is part of the DIYWaterChiller project.                        #
@@ -19,44 +19,25 @@
 //#                                                                             #
 //###############################################################################
 //# Description:                                                                #
-//#   Firmware for the DIYWaterChiller                                          #
+//#   Firmware for the DIYWaterChiller (key input functions)                    #
 //#                                                                             #
 //#   !!! Set the Sketchbook location to               !!!                      #
 //#   !!!  <DIYWaterChiller repository>/revA/software/ !!!                      #
 //#                                                                             #
 //###############################################################################
 //# Version History:                                                            #
-//#   May 4, 2023                                                               #
+//#   May 12, 2023                                                              #
 //#      - Initial release                                                      #
 //#                                                                             #
 //###############################################################################
 
-#ifndef DIYWATERCHILLER_MAIN_H_INCLUDED
-#define DIYWATERCHILLER_MAIN_H_INCLUDED
-
-//Includes
-#include <Arduino.h>
-#include "DIYWaterChiller_disp.h"
-#include "DIYWaterChiller_flow.h"
-#include "DIYWaterChiller_temp.h"
-#include "DIYWaterChiller_pump.h"
-#include "DIYWaterChiller_serial.h"
-#include "DIYWaterChiller_safety.h"
-#include "DIYWaterChiller_eeprom.h"
-#include "DIYWaterChiller_sound.h"
+//Libraries
 #include "DIYWaterChiller_keys.h"
 
-//Common definitions
-#define PERINT_CYC_CNT 977 //Cycle count of the periodic interrupt to approximate one second
-
-//Setup
-void main_setup();
-
-//Loop
-void main_loop();
-
-//Reset
-void main_reset(); 
-
-#endif
-
+//IO setup
+void keys_ioSetup() {
+  //Setup IO
+  pinMode(KEY_A, INPUT_PULLUP);
+  pinMode(KEY_B, INPUT_PULLUP);
+  pinMode(KEY_C, INPUT_PULLUP);
+}
